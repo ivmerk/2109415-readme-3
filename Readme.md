@@ -1,7 +1,7 @@
 # Личный проект «Readme»
 
-* Студент: [Ivan Merkulov](https://up.htmlacademy.ru/nodejs-2/3/user/2109415).
-* Наставник: `Неизвестно`.
+- Студент: [Ivan Merkulov](https://up.htmlacademy.ru/nodejs-2/3/user/2109415).
+- Наставник: [Павел Белик](https://htmlacademy.ru/profile/id84572).
 
 ---
 
