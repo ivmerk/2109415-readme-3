@@ -11,6 +11,7 @@ import { MongooseModule } from '@nestjs/mongoose';
     AuthenticationModule,
     BlogUserModule,
     ConfigUsersModule,
+    ConfigModule.forRoot({ isGlobal: true }),
     MongooseModule.forRootAsync(
       getMongooseOptions()
   )],

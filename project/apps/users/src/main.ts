@@ -24,6 +24,7 @@ async function bootstrap() {
   const configService = app.get<ConfigService>(ConfigService);
 
   const document = SwaggerModule.createDocument(app, config);
+
   SwaggerModule.setup('spec', app, document);
 
   const port = configService.get('application.port');
@@ -35,5 +36,6 @@ async function bootstrap() {
     `🎯  Current mode: ${configService.get('application.environment')}`
   )
 }
+
 
 bootstrap();
