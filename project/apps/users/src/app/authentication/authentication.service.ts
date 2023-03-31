@@ -7,19 +7,22 @@ import { AUTH_USER_EXISTS, AUTH_USER_NOT_FOUND, AUTH_USER_PASSWORD_WRONG } from 
 import { BlogUserEntity } from '../blog-user/blog-user.entity';
 import { LoginUserDto } from './dto/login-user.dto';
 import { dbConfig } from '@project/config/config-users';
-import { ConfigType } from '@nestjs/config';
+import { ConfigService, ConfigType } from '@nestjs/config';
 
 @Injectable()
 export class AuthenticationService {
   constructor(
     private readonly blogUserRepository: BlogUserMemoryRepository,
+    private readonly configService: ConfigService
 
-    @Inject(dbConfig.KEY)
-    private readonly databaseConfig: ConfigType<typeof dbConfig>,
+    // @Inject(dbConfig.KEY)
+    // private readonly databaseConfig: ConfigType<typeof dbConfig>,
   ) {
     // Извлекаем настройки из конфигурации
-    console.log(databaseConfig.host);
-    console.log(databaseConfig.user);
+    // console.log(databaseConfig.host);
+    // console.log(databaseConfig.host);
+    console.log(configService.get<string>('db.host'));
+    console.log(configService.get<string>('db.user'));
   }
   public async register(dto: CreateUserDto) {
     const {email, firstname, lastname, password, dateBirth} = dto;
