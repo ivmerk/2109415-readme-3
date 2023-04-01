@@ -5,6 +5,7 @@
 /dist/
 /docs/
 .idea/*
+project/apps/users/readme.mongo.users
 
 .DS_Store
 coverage

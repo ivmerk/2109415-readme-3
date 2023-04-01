@@ -13,7 +13,7 @@ import { ConfigService, ConfigType } from '@nestjs/config';
 export class AuthenticationService {
   constructor(
     private readonly blogUserRepository: BlogUserMemoryRepository,
-    private readonly configService: ConfigService
+    private readonly configService: ConfigService,
 
     // @Inject(dbConfig.KEY)
     // private readonly databaseConfig: ConfigType<typeof dbConfig>,
