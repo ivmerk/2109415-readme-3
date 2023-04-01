@@ -8,11 +8,12 @@ import { BlogUserEntity } from '../blog-user/blog-user.entity';
 import { LoginUserDto } from './dto/login-user.dto';
 import { dbConfig } from '@project/config/config-users';
 import { ConfigService, ConfigType } from '@nestjs/config';
+import { BlogUserRepository } from '../blog-user/blog-user.repository';
 
 @Injectable()
 export class AuthenticationService {
   constructor(
-    private readonly blogUserRepository: BlogUserMemoryRepository,
+    private readonly blogUserRepository: BlogUserRepository,
     private readonly configService: ConfigService,
 
     // @Inject(dbConfig.KEY)
