@@ -1,9 +1,11 @@
 import { PostType } from "./post-type.enum";
+import { User } from "./user.interface";
 
 export interface Post {
-  _id?: string;
-  tag?: string[];
-  type: PostType;
+  _id?: string,
+  tag?: string[],
+  type: PostType,
+  user: User,
 }
 
 export interface VideoPost extends Post {
