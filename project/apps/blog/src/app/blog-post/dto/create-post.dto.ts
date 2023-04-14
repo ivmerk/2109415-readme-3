@@ -1,6 +1,5 @@
 export class CreatePostDto {
-  public tag?: string[];
-  type: string;
-  body: string;
-  userId: string;
+  public type: string;
+  public body: string;
+  public userId: string;
 }

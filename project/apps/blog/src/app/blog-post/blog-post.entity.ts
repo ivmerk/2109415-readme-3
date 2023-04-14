@@ -3,7 +3,7 @@ import { Entity } from '@project/util/util-types';
 
   export class BlogPostEntity implements Entity<BlogPostEntity>,  Post {
     public id: string;
-    public tag: string[];
+    // public tag: string[];
     public type: string;
     public body: string;
     public publishAt: Date;
@@ -15,7 +15,7 @@ import { Entity } from '@project/util/util-types';
       this.fillEntity(post);
     }
     public fillEntity(entity: Post): void {
-      this.tag= [...entity.tag];
+      // this.tag= [...entity.tag];
       this.type = entity.type;
       this.body = entity.body;
       this.publishAt = new Date();
