@@ -5,10 +5,12 @@ import { User } from "./user.interface";
 export interface Post {
   _id?: string,
   tag?: string[],
-  type: PostType,
-  body: VideoPostBody|TextPostBody|QuotePostBody|PicturePostBody|LinkPostBody,
+  type: string,
+  body: string,
+//  type: PostType,
+//  body: VideoPostBody|TextPostBody|QuotePostBody|PicturePostBody|LinkPostBody,
   publishAt?: Date;
-  userId: User,
+  userId: string,
   comments: Comment[];
   createdAt?: Date;
 }
