@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { CreatePostDto } from './dto/create-post.dto';
-import { Post } from '@project/shared/app-types';
+import { PostEntity } from '@project/shared/app-types';
 import { UpdatePostDto } from './dto/update-post.dto';
 import { BlogPostEntity } from './blog-post.entity';
 import { BlogPostRepository } from './blog-post.repository';
@@ -11,8 +11,8 @@ export class BlogPostService {
     private readonly blogPostRepository: BlogPostRepository,
   ) {}
 
-  async createPost(dto: CreatePostDto): Promise<Post> {
-    const postEntity = new BlogPostEntity({ ...dto,  comments: [] });
+  async createPost(dto: CreatePostDto): Promise<PostEntity> {
+    const postEntity = new BlogPostEntity({ ...dto,  comments: [], favorite: [] });
     return this.blogPostRepository.create(postEntity);
   }
 
@@ -20,15 +20,15 @@ export class BlogPostService {
     this.blogPostRepository.destroy(id);
   }
 
-  async getPost(id: number): Promise<Post> {
+  async getPost(id: number): Promise<PostEntity> {
     return this.blogPostRepository.findById(id);
   }
 
-  async getPosts(): Promise<Post[]> {
+  async getPosts(): Promise<PostEntity[]> {
     return this.blogPostRepository.find();
   }
 
-  async updatePost(_id: number, _dto: UpdatePostDto): Promise<Post> {
+  async updatePost(_id: number, _dto: UpdatePostDto): Promise<PostEntity> {
     throw new Error('Not implemented…');
   }
 

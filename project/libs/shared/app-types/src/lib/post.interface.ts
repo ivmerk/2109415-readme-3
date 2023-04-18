@@ -1,72 +1,51 @@
 import { Comment } from "./comment.interface";
+import { Favorite } from "./favorite.interface";
 import { PostType } from "./post-type.enum";
-import { User } from "./user.interface";
 
-export interface Post {
-  _id?: string,
-  tag?: string[],
-  type: string,
-  body: string,
-//  type: PostType,
-//  body: VideoPostBody|TextPostBody|QuotePostBody|PicturePostBody|LinkPostBody,
-  publishAt?: Date;
-  userId: string,
-  comments: Comment[];
+export interface PostEntity {
+  id?: number,
+  tags?: string,
+  postType: PostType,
   createdAt?: Date;
+  publishAt?: Date;
+  userId?: string,
+  videoPost?: VideoPostBody,
+  textPost?: TextPostBody,
+  quotePost?: QuotePostBody,
+  picturePost?: PicturePostBody,
+  linkPost?: LinkPostBody,
+  comments: Comment[];
+  favorite: Favorite[];
 }
 
 
 export interface VideoPostBody {
-  _id?: string,
-  name: string,
-  video: string,
+  id?: number,
+  title: string,
+  linkVideo: string,
 }
 
 export interface TextPostBody {
-  _id?: string,
+  id?: number,
   name: string,
   announcement: string,
   text: string,
 }
 
 export interface QuotePostBody {
-  _id?: string,
+  id?: number,
   name: string,
   autor: string,
 }
 
 export interface PicturePostBody {
-  _id?: string,
+  id?: number,
   picture: string,
 }
 
 export interface LinkPostBody {
-  _id?: string,
+  id?: number,
   link: string,
   options?: string,
 }
 
-export interface VideoPost extends Post {
-  name: string,
-  video: string,
-}
-
-export interface TextPost extends Post {
-  name: string,
-  announcement: string,
-  text: string,
-}
-
-export interface QuotePost extends Post {
-  name: string,
-  autor: string,
-}
-
-export interface PicturePost extends Post {
-  picture: string,
-}
-
-export interface LinkPost extends Post {
-  link: string,
-  options?: string,
-}
