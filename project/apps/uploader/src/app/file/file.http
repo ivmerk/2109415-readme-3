@@ -4,7 +4,9 @@ Content-Type: multipart/form-data; boundary=boundary
 
 --boundary
 Content-Disposition: form-data; name="file"; filename="file.http"
+Content-Type: text/plain
+
 
 < ./file.http
-
+--boundary--
 ###
