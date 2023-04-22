@@ -9,4 +9,13 @@ Content-Type: text/plain
 
 < ./file.http
 --boundary--
+
+
+
+###
+
+# Get file by ID
+GET http://localhost:3333/api/files/6443d25216fc48c2216cbf37 HTTP/1.1
+
+
 ###
