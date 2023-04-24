@@ -3,6 +3,7 @@ import { CRUDRepository } from '@project/util/util-types';
 import { BlogPostEntity } from './blog-post.entity';
 import { PostEntity } from '@project/shared/app-types';
 import { PrismaService } from '../prisma/prisma.service';
+import { PostQuery } from './query/post.query';
 
 @Injectable()
 export class BlogPostRepository implements CRUDRepository<BlogPostEntity, number, PostEntity> {
@@ -68,12 +69,49 @@ export class BlogPostRepository implements CRUDRepository<BlogPostEntity, number
     });
   }
 
-  public find(): Promise<PostEntity[]> {
-    return this.prisma.postEntity.findMany({
+  public find({limit, sortType, page}:PostQuery): Promise<PostEntity[]> {
+    if (sortType === 'byComments') {
+      return this.prisma.postEntity.findMany({
+        take: limit,
       include: {
         comments: true,
         favorite: true,
-      }
+      },
+      orderBy: {
+        comments:{
+          _count: 'desc'
+        }
+
+      },
+      skip: page > 0 ? limit * (page - 1) : undefined,
+    });
+    }
+    if (sortType === 'byRating') {
+      return this.prisma.postEntity.findMany({
+        take: limit,
+      include: {
+        comments: true,
+        favorite: true,
+      },
+      orderBy: {
+        favorite:{
+          _count: 'desc'
+        }
+
+      },
+      skip: page > 0 ? limit * (page - 1) : undefined,
+    });
+    }
+    return this.prisma.postEntity.findMany({
+        take: limit,
+      include: {
+        comments: true,
+        favorite: true,
+      },
+      orderBy: [{
+        publishAt: 'asc'
+      }],
+      skip: page > 0 ? limit * (page - 1) : undefined,
     });
   }
 

@@ -1,6 +1,6 @@
 import { IsIn, IsNumber, IsOptional } from 'class-validator';
 import { Transform } from 'class-transformer';
-import { DEFAULT_POST_COUNT_LIMIT, DEFAULT_POST_SORT_TYPE, DEFAULT_SORT_DIRECTION } from '../blog-post.constant';
+import { DEFAULT_POST_COUNT_LIMIT } from '../blog-post.constant';
 
 export class PostQuery {
   @Transform(({ value } ) => +value || DEFAULT_POST_COUNT_LIMIT)
@@ -8,13 +8,13 @@ export class PostQuery {
   @IsOptional()
   public limit = DEFAULT_POST_COUNT_LIMIT;
 
-  @IsIn(['byPostDate', 'byRating', 'byComments'])
+  @IsIn(['byRating', 'byComments'])
   @IsOptional()
-  public sortType: 'byPostDate' | 'byRating' | 'byComments' = DEFAULT_POST_SORT_TYPE;
+  public sortType: 'byRating' | 'byComments' | undefined;
 
-  @IsIn(['asc', 'desc'])
-  @IsOptional()
-  public sortDirection: 'desc' | 'asc' = DEFAULT_SORT_DIRECTION;
+  // @IsIn(['asc', 'desc'])
+  // @IsOptional()
+  // public sortDirection: 'desc' | 'asc' = DEFAULT_SORT_DIRECTION;
 
   @Transform(({ value }) => +value)
   @IsOptional()
