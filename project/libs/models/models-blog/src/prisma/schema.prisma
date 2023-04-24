@@ -11,38 +11,101 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Post {
-  postId    Int        @id @default(autoincrement()) @map("post_id")
-  type      String     @default("")
-  body      String     @default("")
-  createdAt DateTime   @default(now()) @map("created_at")
-  publishAt DateTime   @updatedAt @map("publish_at")
-  userId    String?    @map("user_id")
-  comments  Comment[]
-  favorite  Favorite[]
+enum PostType {
+  video
+  text
+  quote
+  picture
+  link
+}
+
+model PostEntity {
+  postId      Int          @id @default(autoincrement()) @map("post_id")
+  tags        String?
+  postType    PostType
+  videoPost   VideoPost?
+  textPost    TextPost?
+  quotePost   QuotePost?
+  picturePost PicturePost?
+  linkPost    LinkPost?
+  createdAt   DateTime     @default(now()) @map("created_at")
+  publishAt   DateTime     @updatedAt @map("publish_at")
+  userId      String?      @map("user_id")
+  comments    Comment[]
+  favorite    Favorite[]
 
   @@map("posts")
 }
 
+model VideoPost {
+  id        Int        @id @default(autoincrement()) @map("video_post_id")
+  title     String     @default("")
+  linkVideo String     @default("")
+  post      PostEntity @relation(fields: [postId], references: [postId], onDelete: Cascade, onUpdate: Cascade)
+  postId    Int        @unique @map("post_id")
+
+  @@map("video_posts")
+}
+
+model TextPost {
+  id           Int        @id @default(autoincrement()) @map("text_post_id")
+  name         String     @default("")
+  announcement String     @default("")
+  text         String     @default("")
+  post         PostEntity @relation(fields: [postId], references: [postId], onDelete: Cascade, onUpdate: Cascade)
+  postId       Int        @unique @map("post_id")
+
+  @@map("text_posts")
+}
+
+model QuotePost {
+  id     Int        @id @default(autoincrement()) @map("quote_post_id")
+  name   String     @default("")
+  autor  String     @default("")
+  post   PostEntity @relation(fields: [postId], references: [postId], onDelete: Cascade, onUpdate: Cascade)
+  postId Int        @unique @map("post_id")
+
+  @@map("quote_posts")
+}
+
+model PicturePost {
+  id      Int        @id @default(autoincrement()) @map("picture_post_id")
+  picture String     @default("")
+  post    PostEntity @relation(fields: [postId], references: [postId], onDelete: Cascade, onUpdate: Cascade)
+  postId  Int        @unique @map("post_id")
+
+  @@map("picture_posts")
+}
+
+model LinkPost {
+  id     Int        @id @default(autoincrement()) @map("link_post_id")
+  link   String     @default("")
+  iption String?    @default("")
+  post   PostEntity @relation(fields: [postId], references: [postId], onDelete: Cascade, onUpdate: Cascade)
+  postId Int        @unique @map("post_id")
+
+  @@map("link_posts")
+}
+
 model Comment {
-  commentId Int      @id @default(autoincrement()) @map("comment_id")
+  id        Int        @id @default(autoincrement()) @map("comment_id")
   message   String
-  userId    String   @map("user_id")
-  post      Post     @relation(fields: [postId], references: [postId], onDelete: Cascade, onUpdate: Cascade)
-  postId    Int      @map("post_id")
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
+  userId    String     @map("user_id")
+  post      PostEntity @relation(fields: [postId], references: [postId], onDelete: Cascade, onUpdate: Cascade)
+  postId    Int        @map("post_id")
+  createdAt DateTime   @default(now()) @map("created_at")
+  updatedAt DateTime   @updatedAt @map("updated_at")
 
   @@map("comments")
 }
 
 model Favorite {
-  favoriteId Int      @id @default(autoincrement()) @map("favorite_id")
-  post       Post     @relation(fields: [postId], references: [postId], onDelete: Cascade)
-  postId     Int      @map("post_id")
-  userId     String   @map("user_id")
-  createdAt  DateTime @default(now()) @map("created_at")
-  updatedAt  DateTime @default(now()) @updatedAt @map("updated_at")
+  id        Int        @id @default(autoincrement()) @map("favorite_id")
+  post      PostEntity @relation(fields: [postId], references: [postId], onDelete: Cascade)
+  postId    Int        @map("post_id")
+  userId    String     @map("user_id")
+  createdAt DateTime   @default(now()) @map("created_at")
+  updatedAt DateTime   @default(now()) @updatedAt @map("updated_at")
 
   @@map("favorites")
 }

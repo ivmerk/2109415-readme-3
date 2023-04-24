@@ -14,3 +14,7 @@ coverage
 # Environments
 *.env
 project/apps/blog/readme.postgres.blog
+
+**/uploads/*
+!.gitkeep
+project/apps/uploader/readme.mongo.uploader

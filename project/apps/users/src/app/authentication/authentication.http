@@ -3,8 +3,8 @@ POST http://localhost:3000/api/auth/register HTTP/1.1
 Content-Type: application/json
 
 {
-  "email": "user@notfound.local",
-  "dateBirth": "2012-02-22",
+  "email": "user@nofof.local",
+  "dateBirth": "2012-02-12",
   "firstname": "Keks",
   "lastname": "Smith",
   "password": "123456"
@@ -14,7 +14,7 @@ Content-Type: application/json
 
 # Get user by ID
 GET http://localhost:3000/api/auth/64286606e486898da32104d0 HTTP/1.1
-
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDI4NjYwNmU0ODY4OThkYTMyMTA0ZDAiLCJlbWFpbCI6InVzZXJAbm90Zm91bmQubG9jYWwiLCJyb2xlIjoidXNlciIsImxhc3RuYW1lIjoiU21pdGgiLCJmaXJzdG5hbWUiOiJLZWtzIiwiaWF0IjoxNjgyMzI1ODU3LCJleHAiOjE2ODIzMjY0NTd9.7nIeTP9JCs3Iis_uXIrmI4ziNEQPLcz4hjiN2dpye04
 ###
 
 # Login user by email and password
