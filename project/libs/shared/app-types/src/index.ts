@@ -5,3 +5,4 @@ export * from './lib/favorite.interface';
 export * from './lib/post.interface';
 export * from './lib/post-type.enum';
 export * from './lib/file.interface';
+export * from './lib/token-payload.interface';
