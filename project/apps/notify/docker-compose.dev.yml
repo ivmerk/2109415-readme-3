@@ -9,3 +9,17 @@ services:
       - "1083:8080"
     volumes:
       - ./readme.notify.fakesmtp:/var/mail
+  readme.notify.rabbitmq:
+    image: rabbitmq:3.11-management
+    container_name: readme.notify.rabbitmq
+    ports:
+      - '1088:15672'
+      - '5672:5672'
+    environment:
+      RABBITMQ_DEFAULT_USER: admin
+      RABBITMQ_DEFAULT_PASS: test
+    healthcheck:
+      test: rabbitmq-diagnostics -q ping
+      interval: 10s
+      timeout: 5s
+      retries: 5
