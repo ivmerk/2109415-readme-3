@@ -2,13 +2,23 @@ version: '3.5'
 services:
   readme.notify.fakesmtp:
     image: gessnerfl/fake-smtp-server
-    container_name: readme.notify.fakesmtp
-    hostname: fakesmtp
+    container_name: "readme.notify.fakesmtp"
+    hostname: "fakesmtp"
     ports:
-      - 8025:8025
-      - 1083:8080
+      - "8025:8025"
     volumes:
       - ./readme.notify.fakesmtp:/var/mail
+  readme.notify.fake-smtp-web:
+    image: mjstewart/fakesmtp-web:1.0
+    container_name: "readme.notify.fakesmtpweb"
+    ports:
+      - "1083:8080"
+    volumes:
+      - ./readme.notify.fakesmtp:/var/mail
+    environment:
+      - EMAIL_INPUT_DIR_POLL_RATE_SECONDS=10
+    depends_on:
+      - readme.notify.fakesmtp
 
 
 
@@ -16,8 +26,8 @@ services:
     image: rabbitmq:3.11-management
     container_name: readme.notify.rabbitmq
     ports:
-      - 1088:15672
-      - 5672:5672
+      - '1088:15672'
+      - '5672:5672'
     environment:
       RABBITMQ_DEFAULT_USER: admin
       RABBITMQ_DEFAULT_PASS: test
