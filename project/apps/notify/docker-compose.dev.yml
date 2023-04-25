@@ -1,0 +1,11 @@
+version: '3.5'
+services:
+  readme.notify.fakesmtp:
+    image: gessnerfl/fake-smtp-server
+    container_name: "readme.notify.fakesmtp"
+    hostname: "fakesmtp"
+    ports:
+      - "8025:8025"
+      - "1083:8080"
+    volumes:
+      - ./readme.notify.fakesmtp:/var/mail
