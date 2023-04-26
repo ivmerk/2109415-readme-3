@@ -18,3 +18,5 @@ project/apps/blog/readme.postgres.blog
 **/uploads/*
 !.gitkeep
 project/apps/uploader/readme.mongo.uploader
+project/apps/notify/readme.notify.fakesmtp
+project/apps/notify/fake-smtp-emails

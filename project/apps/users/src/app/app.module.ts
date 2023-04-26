@@ -4,6 +4,7 @@ import { AuthenticationModule } from './authentication/authentication.module';
 import { ConfigModule } from '@nestjs/config';
 import { ConfigUsersModule, getMongooseOptions } from '@project/config/config-users';
 import { MongooseModule } from '@nestjs/mongoose';
+import { NotifyModule } from './notify/notify.module';
 
 
 @Module({
@@ -12,6 +13,7 @@ import { MongooseModule } from '@nestjs/mongoose';
     BlogUserModule,
     ConfigUsersModule,
     ConfigModule.forRoot({ isGlobal: true }),
+    NotifyModule,
     MongooseModule.forRootAsync(
       getMongooseOptions()
   )],
