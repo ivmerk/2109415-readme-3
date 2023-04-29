@@ -30,10 +30,10 @@ export class BlogPostRepository implements CRUDRepository<BlogPostEntity, number
           create: item.linkPost
         },
         comments:{
-          create:[]
+          connect:[]
         },
         favorite:{
-          create:[]
+          connect:[]
         }
       },
       include:{

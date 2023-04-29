@@ -3,6 +3,6 @@ export interface Comment {
   message: string;
   userId: string;
   postId?: number;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt?: Date;
+  updatedAt?: Date;
 }

@@ -26,7 +26,6 @@ export class BlogPostController {
 
   @Post('/')
   async create(@Body() dto: CreatePostDto) {
-    console.log('log');
     const newPost = await this.blogPostService.createPost(dto);
 
     return fillObject(PostRdo, newPost);
