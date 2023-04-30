@@ -7,8 +7,8 @@ Content-Type: application/json
 {
   "postType": "video",
   "videoPost": {
-    "title": "its name",
-    "linkVideo": "its link"
+    "title": "its some leettesrs and little more name",
+    "linkVideo": "https://www.youtube.com/watch?v=NYGL4hxPuxs"
   },
   "userId": "13"
 }
