@@ -1,6 +1,6 @@
-import { LinkPostBody, PicturePostBody,  PostType, QuotePostBody, TextPostBody, VideoPostBody, postTypes } from "@project/shared/app-types";
+import { LinkPostBody, PicturePostBody,  PostType, QuotePostBody, TextPostBody, postTypes } from "@project/shared/app-types";
 import { Type } from "class-transformer";
-import { Contains, IsIn, IsMongoId, IsString, IsUrl, MaxLength, MinLength, ValidateNested } from "class-validator";
+import { Contains, IsIn,  IsString, IsUrl, MaxLength, MinLength, ValidateNested } from "class-validator";
 
 
 

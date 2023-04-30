@@ -21,7 +21,7 @@ enum PostType {
 
 model PostEntity {
   postId      Int          @id @default(autoincrement()) @map("post_id")
-  tags        String?
+  tags        Tag[]
   postType    PostType
   videoPost   VideoPost?
   textPost    TextPost?
@@ -108,4 +108,12 @@ model Favorite {
   updatedAt DateTime   @default(now()) @updatedAt @map("updated_at")
 
   @@map("favorites")
+}
+
+model Tag {
+  id    Int          @id @default(autoincrement()) @map("tag_id")
+  text  String
+  posts PostEntity[]
+
+  @@map("tags")
 }
