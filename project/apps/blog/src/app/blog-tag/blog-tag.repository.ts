@@ -12,24 +12,24 @@ export class BlogTagRepository implements CRUDRepository<BlogTagEntity, number, 
     const entityData = item.toObject();
       return this.pisma.tag.create({
         data:{
-          id: entityData.id,
+          tagId: entityData.tagId,
           text: entityData.text
         }
       });
   }
 
-  public async destroy(id: number): Promise<void> {
+  public async destroy(tagId: number): Promise<void> {
       await this.pisma.tag.delete({
         where: {
-          id,
+          tagId,
         }
       });
   }
 
-  public async findById(id: number): Promise<Tag> | null {
+  public async findById(tagId: number): Promise<Tag> | null {
       return this.pisma.tag.findFirst({
         where:{
-          id,
+          tagId,
         }
       })
   }

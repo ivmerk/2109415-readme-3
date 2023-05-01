@@ -12,7 +12,7 @@ constructor(private readonly prisma: PrismaService) {}
     const entityData = item.toObject();
     return this.prisma.comment.create({
       data: {
-        id: entityData.id,
+        commentId: entityData.commentId,
         message: entityData.message,
         userId: entityData.userId,
         postId: entityData.postId,
@@ -22,19 +22,19 @@ constructor(private readonly prisma: PrismaService) {}
     })
   }
 
-  public async destroy(id: number): Promise<void> {
+  public async destroy(commentId: number): Promise<void> {
       await this.prisma.comment.delete({
         where: {
-          id,
+          commentId,
         }
     });
 
   }
 
-  public async findById(id: number): Promise<Comment> | null {
+  public async findById(commentId: number): Promise<Comment> | null {
       return this.prisma.comment.findFirst({
         where:{
-          id,
+          commentId,
         }
       })
   }

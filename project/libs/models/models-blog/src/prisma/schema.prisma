@@ -88,7 +88,7 @@ model LinkPost {
 }
 
 model Comment {
-  id        Int        @id @default(autoincrement()) @map("comment_id")
+  commentId Int        @id @default(autoincrement()) @map("comment_id")
   message   String
   userId    String     @map("user_id")
   post      PostEntity @relation(fields: [postId], references: [postId], onDelete: Cascade, onUpdate: Cascade)
@@ -100,18 +100,18 @@ model Comment {
 }
 
 model Favorite {
-  id        Int        @id @default(autoincrement()) @map("favorite_id")
-  post      PostEntity @relation(fields: [postId], references: [postId], onDelete: Cascade)
-  postId    Int        @map("post_id")
-  userId    String     @map("user_id")
-  createdAt DateTime   @default(now()) @map("created_at")
-  updatedAt DateTime   @default(now()) @updatedAt @map("updated_at")
+  favoriteId Int        @id @default(autoincrement()) @map("favorite_id")
+  post       PostEntity @relation(fields: [postId], references: [postId], onDelete: Cascade)
+  postId     Int        @map("post_id")
+  userId     String     @map("user_id")
+  createdAt  DateTime   @default(now()) @map("created_at")
+  updatedAt  DateTime   @default(now()) @updatedAt @map("updated_at")
 
   @@map("favorites")
 }
 
 model Tag {
-  id    Int          @id @default(autoincrement()) @map("tag_id")
+  tagId Int          @id @default(autoincrement()) @map("tag_id")
   text  String
   posts PostEntity[]
 

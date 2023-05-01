@@ -34,6 +34,9 @@ export class BlogPostRepository implements CRUDRepository<BlogPostEntity, number
         },
         favorite:{
           connect:[]
+        },
+        tags:{
+          connect: entityData.tags.map(({tagId}) => ({tagId}))
         }
       },
       include:{
@@ -44,6 +47,7 @@ export class BlogPostRepository implements CRUDRepository<BlogPostEntity, number
         linkPost: true,
         comments: true,
         favorite: true,
+        tags: true,
       }
     });
   }

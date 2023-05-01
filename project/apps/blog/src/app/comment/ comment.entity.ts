@@ -2,7 +2,7 @@ import { Comment } from "@project/shared/app-types";
 import { Entity } from "@project/util/util-types";
 
 export class CommentEntity implements Entity<Comment>{
-  public id: number;
+  public commentId: number;
   public message: string;
   public userId: string;
   public postId: number;
