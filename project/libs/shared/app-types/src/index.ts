@@ -8,3 +8,4 @@ export * from './lib/file.interface';
 export * from './lib/token-payload.interface';
 export * from './lib/subscriber.interface';
 export * from './lib/rabbit-routing.enum';
+export * from './lib/tag.interface';
