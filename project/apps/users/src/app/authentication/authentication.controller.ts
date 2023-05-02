@@ -1,14 +1,14 @@
-import { Body, Controller, Get, HttpCode, HttpStatus, Param, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, HttpCode, HttpStatus, Param, Post, Req, UseGuards } from '@nestjs/common';
 import { AuthenticationService } from './authentication.service';
 import { UserRdo } from './rdo/user.rdo';
 import { CreateUserDto } from './dto/create-user.dto';
 import { fillObject } from '@project/util/util-core';
-import { LoginUserDto } from './dto/login-user.dto';
 import { LoggedUserRdo } from './rdo/logged-user.rdo';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { MongoidValidationPipe } from '@project/shared/shared-pipes';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
 import { NotifyService } from '../notify/notify.service';
+import { RequestWithUser } from '@project/shared/app-types';
 
 @ApiTags('authentication')
 @Controller('auth')
@@ -41,10 +41,8 @@ export class AuthenticationController {
   })
   @Post('login')
   @HttpCode(HttpStatus.OK)
-  public async login(@Body() dto: LoginUserDto) {
-    const verifiedUser = await this.authService.verifyUser(dto);
-    const loggedUser = await this.authService.createUserToken(verifiedUser);
-    return fillObject(LoggedUserRdo, Object.assign(verifiedUser, loggedUser));
+  public async login(@Req() { user }: RequestWithUser) {
+    return this.authService.createUserToken(user);
   }
 
   @ApiResponse({
