@@ -1,4 +1,4 @@
-import { LinkPostBody, PicturePostBody,  PostType, QuotePostBody, TextPostBody, postTypes } from "@project/shared/app-types";
+import { LinkPostBody, PicturePostBody,  PostType, QuotePostBody, Tag, TextPostBody, postTypes } from "@project/shared/app-types";
 import { Type } from "class-transformer";
 import { Contains, IsIn,  IsString, IsUrl, MaxLength, MinLength, ValidateNested } from "class-validator";
 
@@ -29,6 +29,9 @@ export class CreatePostDto {
   public quotePost?: QuotePostBody;
   public picturePost?: PicturePostBody;
   public linkPost?: LinkPostBody;
+
+  public tags?: Tag[];
+
 
   @IsString()
   public userId: string;

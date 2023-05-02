@@ -37,7 +37,9 @@ export class BlogTagRepository implements CRUDRepository<BlogTagEntity, number, 
   public async findByTag( text: string):Promise<Tag> | null{
     return this.pisma.tag.findFirst({
       where:{
-        text,
+        text: {
+          contains: text
+        },
       }
     })
   }

@@ -1,3 +1,4 @@
+import { Tag } from '@prisma/client';
 import { Favorite, LinkPostBody, PicturePostBody, PostType, QuotePostBody, TextPostBody, VideoPostBody } from '@project/shared/app-types';
 import { Expose } from 'class-transformer';
 
@@ -6,7 +7,7 @@ export class PostRdo {
   public id: string;
 
   @Expose()
-  public tag: string;
+  public tag: Tag[];
 
   @Expose()
   public postType: PostType;
@@ -34,4 +35,5 @@ export class PostRdo {
 
   @Expose()
   public favorite: Favorite[];
+
 }
