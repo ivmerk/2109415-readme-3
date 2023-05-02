@@ -1,3 +1,4 @@
+import { PostEntity } from "@project/shared/app-types";
 import { Expose } from "class-transformer";
 
 export class TagRdo {
@@ -6,4 +7,7 @@ export class TagRdo {
 
   @Expose()
   text: string;
+
+  @Expose()
+  posts: PostEntity[];
 }

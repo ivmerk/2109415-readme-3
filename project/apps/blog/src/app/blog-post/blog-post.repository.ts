@@ -14,6 +14,9 @@ export class BlogPostRepository implements CRUDRepository<BlogPostEntity, number
     return this.prisma.postEntity.create({
       data: {
         ...entityData,
+        tags:{
+          connect: entityData.tags.map(({tagId}) => ({tagId}))
+        },
         videoPost: {
           create: item.videoPost
         },
@@ -34,9 +37,6 @@ export class BlogPostRepository implements CRUDRepository<BlogPostEntity, number
         },
         favorite:{
           connect:[]
-        },
-        tags:{
-          connect: entityData.tags.map(({tagId}) => ({tagId}))
         }
       },
       include:{
@@ -66,9 +66,14 @@ export class BlogPostRepository implements CRUDRepository<BlogPostEntity, number
         postId
       },
       include: {
+        videoPost: true,
+        textPost: true,
+        quotePost: true,
+        picturePost: true,
+        linkPost: true,
         comments: true,
-
         favorite: true,
+        tags: true,
       }
     });
   }
@@ -79,6 +84,7 @@ export class BlogPostRepository implements CRUDRepository<BlogPostEntity, number
         take: limit,
       include: {
         comments: true,
+        tags: true,
         favorite: true,
       },
       orderBy: {
@@ -96,6 +102,7 @@ export class BlogPostRepository implements CRUDRepository<BlogPostEntity, number
       include: {
         comments: true,
         favorite: true,
+        tags: true,
       },
       orderBy: {
         favorite:{
@@ -110,6 +117,7 @@ export class BlogPostRepository implements CRUDRepository<BlogPostEntity, number
         take: limit,
       include: {
         comments: true,
+        tags: true,
         favorite: true,
       },
       orderBy: [{

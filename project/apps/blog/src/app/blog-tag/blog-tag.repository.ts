@@ -30,16 +30,38 @@ export class BlogTagRepository implements CRUDRepository<BlogTagEntity, number, 
       return this.pisma.tag.findFirst({
         where:{
           tagId,
+        },
+        include:{
+          posts:true,
         }
       })
   }
 
+  public async find(ids: number[] = []): Promise<Tag[]> | null {
+    const tags: Tag[] = [];
+    if (ids.length){
+    return this.pisma.tag.findMany({
+        where:{
+          tagId:{
+            in: ids.length > 0 ? ids: undefined
+          }
+        },
+        include:{
+          posts:true,
+        }
+      })
+  }
+  return tags;
+  }
   public async findByTag( text: string):Promise<Tag> | null{
     return this.pisma.tag.findFirst({
       where:{
         text: {
           contains: text
-        },
+        }
+      },
+      include:{
+        posts:true,
       }
     })
   }

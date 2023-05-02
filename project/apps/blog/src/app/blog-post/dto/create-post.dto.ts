@@ -1,6 +1,6 @@
 import { LinkPostBody, PicturePostBody,  PostType, QuotePostBody, Tag, TextPostBody, postTypes } from "@project/shared/app-types";
 import { Type } from "class-transformer";
-import { Contains, IsIn,  IsString, IsUrl, MaxLength, MinLength, ValidateNested } from "class-validator";
+import { ArrayMaxSize, Contains, IsArray, IsIn,  IsOptional,  IsString, IsUrl, MaxLength, MinLength, ValidateNested } from "class-validator";
 
 
 
@@ -30,7 +30,10 @@ export class CreatePostDto {
   public picturePost?: PicturePostBody;
   public linkPost?: LinkPostBody;
 
-  public tags?: Tag[];
+  @IsArray()
+  @ArrayMaxSize(8)
+  @IsOptional()
+  public tags?: number[];
 
 
   @IsString()

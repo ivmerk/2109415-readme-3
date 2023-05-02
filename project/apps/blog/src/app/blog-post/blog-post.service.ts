@@ -5,15 +5,19 @@ import { UpdatePostDto } from './dto/update-post.dto';
 import { BlogPostEntity } from './blog-post.entity';
 import { BlogPostRepository } from './blog-post.repository';
 import { PostQuery } from './query/post.query';
+import { BlogTagRepository } from '../blog-tag/blog-tag.repository';
 
 @Injectable()
 export class BlogPostService {
   constructor(
     private readonly blogPostRepository: BlogPostRepository,
+    private readonly blogTagRepository: BlogTagRepository,
   ) {}
 
   public async createPost(dto: CreatePostDto): Promise<PostEntity> {
-    const postEntity = new BlogPostEntity({ ...dto,  comments: [], favorite: [] });
+    const tagsSet = new Set(dto.tags)
+    const tags = await this.blogTagRepository.find(Array.from(tagsSet))
+    const postEntity = new BlogPostEntity({ ...dto, tags, comments: [], favorite: [] });
     return this.blogPostRepository.create(postEntity);
   }
 
