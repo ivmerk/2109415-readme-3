@@ -22,7 +22,7 @@ export class BlogTagController {
 
       dto.text = dto.text.toLowerCase();
       const existingTag = await this.blogTagService.checkTagExisting(dto.text);
-      if (!existingTag){
+      if (!existingTag && !isFinite(Number(dto.text[0]))){
       const newTag = await this.blogTagService.createTag(dto);
       return fillObject(TagRdo, newTag);}
     }
