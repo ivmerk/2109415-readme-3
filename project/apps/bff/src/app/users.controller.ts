@@ -1,9 +1,11 @@
 import { HttpService } from '@nestjs/axios';
-import { Body, Controller, Post, Req } from '@nestjs/common';
+import { Body, Controller, Post, Req, UseFilters } from '@nestjs/common';
 import { LoginUserDto } from './dto/login-user.dto';
 import { ApplicationServiceURL } from './app.config';
+import { AxiosExceptionFilter } from './filters/axios-exception.filter';
 
 @Controller('users')
+@UseFilters(AxiosExceptionFilter)
 export class UsersController {
   constructor(
     private readonly httpService: HttpService
@@ -11,6 +13,7 @@ export class UsersController {
 
   @Post('login')
   public async login(@Body() loginUserDto: LoginUserDto) {
+    console.log(loginUserDto);
     const { data } = await this.httpService.axiosRef.post(`${ApplicationServiceURL.Users}/login`, loginUserDto);
     return data;
   }
