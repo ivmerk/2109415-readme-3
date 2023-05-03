@@ -62,6 +62,7 @@ export class AuthenticationService {
     return this.blogUserRepository.findById(id);
   }
   public async createUserToken(user: User) {
+    console.log(user);
     const payload: TokenPayload = {
       sub: user._id,
       email: user.email,
