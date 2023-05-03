@@ -3,13 +3,13 @@ import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 async function fillDb() {
-  await prisma.post.upsert({
+  await prisma.postEntity.upsert({
     where: { postId: 1 },
     update: {},
     create: {
-      type: 'Книги',
+      postType: 'link',
       userId: '11',
-      comment: {
+      comments: {
         create: [
           {
             message: 'Вау! Отличный ноутбук.',
@@ -22,13 +22,13 @@ async function fillDb() {
       }
     }
   });
-  await prisma.post.upsert({
+  await prisma.postEntity.upsert({
     where: { postId: 3 },
     update: {},
     create: {
-      type: 'Книги',
+      postType: 'video',
       userId: '11',
-      comment: {
+      comments: {
         create: [
           {
             message: 'Вау! Отличный ноутбук.',
