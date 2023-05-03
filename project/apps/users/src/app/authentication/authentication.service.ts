@@ -1,12 +1,11 @@
 import { ConflictException, Inject, Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
-import { BlogUserMemoryRepository } from '../blog-user/blog-user-memory.repository';
 import { CreateUserDto } from './dto/create-user.dto';
 import { TokenPayload, User, UserRole } from '@project/shared/app-types';
 import dayjs from 'dayjs';
 import { AUTH_USER_EXISTS, AUTH_USER_NOT_FOUND, AUTH_USER_PASSWORD_WRONG } from './authentication.constant';
 import { BlogUserEntity } from '../blog-user/blog-user.entity';
 import { LoginUserDto } from './dto/login-user.dto';
-import { dbConfig } from '@project/config/config-users';
+import { jwtConfig } from '@project/config/config-users';
 import { ConfigService, ConfigType } from '@nestjs/config';
 import { BlogUserRepository } from '../blog-user/blog-user.repository';
 import { JwtService } from '@nestjs/jwt';
@@ -17,6 +16,7 @@ export class AuthenticationService {
     private readonly blogUserRepository: BlogUserRepository,
     private readonly configService: ConfigService,
     private readonly jwtService: JwtService,
+    @Inject (jwtConfig.KEY) private readonly jwtOptions: ConfigType<typeof jwtConfig>,
 
   ) {}
   public async register(dto: CreateUserDto) {
