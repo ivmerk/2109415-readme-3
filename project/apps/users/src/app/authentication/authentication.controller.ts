@@ -69,6 +69,7 @@ export class AuthenticationController {
     description: 'Get a new access/refresh tokens'
   })
   public async refreshToken(@Req() { user }: RequestWithUser) {
+    console.log('controller');
     return this.authService.createUserToken(user);
   }
 

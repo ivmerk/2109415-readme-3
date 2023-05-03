@@ -32,5 +32,6 @@ export function parseTime(time: string): TimeAndUnit {
     throw new Error(`[parseTime] Can't parse value count. Result is NaN.`);
   }
 
+  console.log(value, unit)
   return { value, unit }
 }
