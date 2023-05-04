@@ -7,10 +7,11 @@ Content-Type: application/json
 {
   "postType": "video",
   "videoPost": {
-    "title": "its name",
-    "linkVideo": "its link"
+    "title": "its some leettesrand little more name1",
+    "linkVideo": "https://www.youtube.com/watch?v=NYGL4hxPuxs"
   },
-  "userId": "13"
+  "userId": "13",
+  "tags": [1,1]
 }
 
 ###
@@ -21,12 +22,12 @@ DELETE http://localhost:3333/api/posts/3 HTTP/1.1
 ###
 
 # Get post by id
-GET http://localhost:3333/api/posts/5 HTTP/1.1
+GET http://localhost:3333/api/posts/19 HTTP/1.1
 
 ###
 
 # Get all posts
-GET http://localhost:3333/api/posts?sortType=byRating HTTP/1.1
+GET http://localhost:3333/api/posts?sortType=byComments HTTP/1.1
 
 ###
 

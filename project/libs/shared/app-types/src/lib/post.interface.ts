@@ -1,10 +1,11 @@
 import { Comment } from "./comment.interface";
 import { Favorite } from "./favorite.interface";
 import { PostType } from "./post-type.enum";
+import { Tag } from "./tag.interface";
 
 export interface PostEntity {
   id?: number,
-  tags?: string,
+  tags?: Tag[],
   postType: PostType,
   createdAt?: Date;
   publishAt?: Date;

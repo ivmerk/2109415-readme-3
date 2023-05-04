@@ -15,8 +15,8 @@ import { NotifyModule } from './notify/notify.module';
     ConfigModule.forRoot({ isGlobal: true }),
     NotifyModule,
     MongooseModule.forRootAsync(
-      getMongooseOptions()
-  )],
+      getMongooseOptions()),
+    ],
   controllers: [],
   providers: [],
 })

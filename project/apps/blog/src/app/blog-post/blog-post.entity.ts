@@ -1,9 +1,9 @@
-import { PostEntity, Comment, PostType, VideoPostBody, TextPostBody, QuotePostBody, PicturePostBody, LinkPostBody, Favorite} from '@project/shared/app-types';
+import { PostEntity, Comment, PostType, VideoPostBody, TextPostBody, QuotePostBody, PicturePostBody, LinkPostBody, Favorite, Tag} from '@project/shared/app-types';
 import { Entity } from '@project/util/util-types';
 
   export class BlogPostEntity implements Entity<PostEntity>  {
     public id: number;
-    public tags: string;
+    public tags: Tag[];
     public postType: PostType;
     public publishAt: Date;
     public createdAt: Date;
@@ -21,7 +21,7 @@ import { Entity } from '@project/util/util-types';
       this.fillEntity(post);
     }
     public fillEntity(entity: PostEntity): void {
-      this.tags= entity.tags;
+      this.tags= [...entity.tags];
       this.postType = entity.postType;
       this.videoPost = entity.videoPost;
       this.textPost = entity.textPost;
@@ -36,6 +36,7 @@ import { Entity } from '@project/util/util-types';
     }
 
     public toObject(): PostEntity {
-      return { ...this }
+      return { ...this,
+      tags: this.tags.map(({tagId}) => ({tagId})) }
     }
   }

@@ -10,7 +10,7 @@ services:
     ports:
       - 5432:5432
     volumes:
-      - ./readme.postgres.blog:/var/lib/postgresql/data
+      - ~/db/readme.postgres.blog:/var/lib/postgresql/data
 
     healthcheck:
       test: [ "CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d readme-blog" ]

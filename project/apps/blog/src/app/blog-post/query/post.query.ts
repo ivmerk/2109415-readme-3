@@ -12,9 +12,6 @@ export class PostQuery {
   @IsOptional()
   public sortType: 'byRating' | 'byComments' | undefined;
 
-  // @IsIn(['asc', 'desc'])
-  // @IsOptional()
-  // public sortDirection: 'desc' | 'asc' = DEFAULT_SORT_DIRECTION;
 
   @Transform(({ value }) => +value)
   @IsOptional()
