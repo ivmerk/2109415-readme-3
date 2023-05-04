@@ -3,6 +3,7 @@ import { BlogController } from './blog.controller';
 import { UsersController } from './users.controller';
 import { HTTP_CLIENT_MAX_REDIRECTS, HTTP_CLIENT_TIMEOUT } from './app.config';
 import { HttpModule } from '@nestjs/axios';
+import { CheckAuthGuard } from './guards/check-auth.guard';
 
 @Module({
   imports: [
@@ -15,7 +16,7 @@ import { HttpModule } from '@nestjs/axios';
     UsersController,
     BlogController,
   ],
-  providers: [],
+  providers: [CheckAuthGuard],
 
 })
 export class AppModule {}
