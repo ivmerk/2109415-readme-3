@@ -37,7 +37,7 @@ export class BlogTagRepository implements CRUDRepository<BlogTagEntity, number, 
       })
   }
 
-  public async find(ids: number[] = []): Promise<Tag[]> | null {
+  public async findByIds(ids: number[] = []): Promise<Tag[]> | null {
     const tags: Tag[] = [];
     if (ids.length){
     return this.pisma.tag.findMany({
@@ -53,7 +53,7 @@ export class BlogTagRepository implements CRUDRepository<BlogTagEntity, number, 
   }
   return tags;
   }
-  public async findByTag( text: string):Promise<Tag> | null{
+  public async findByTagText( text: string):Promise<Tag> | null{
     return this.pisma.tag.findFirst({
       where:{
         text: {
