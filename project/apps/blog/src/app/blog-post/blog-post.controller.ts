@@ -15,7 +15,8 @@ export class BlogPostController {
   @Get('/:id')
   async show(@Param('id', ParseIntPipe) id: number) {
     const post = await this.blogPostService.getPost(id);
-    return fillObject(PostRdo, post);
+    console.log(post, post.tags.length);
+    return {...fillObject(PostRdo, post), commentsLength: post.comments.length, favoriteLength: post.favorite.length};
   }
 
   @Get('/')

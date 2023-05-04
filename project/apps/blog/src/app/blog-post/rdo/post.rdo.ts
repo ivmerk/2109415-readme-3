@@ -35,4 +35,7 @@ export class PostRdo {
   @Expose()
   public favorite: Favorite[];
 
+  @Expose()
+  public publishAt: Date;
+
 }

@@ -20,19 +20,21 @@ enum PostType {
 }
 
 model PostEntity {
-  postId      Int          @id @default(autoincrement()) @map("post_id")
-  tags        Tag[]
-  postType    PostType
-  videoPost   VideoPost?
-  textPost    TextPost?
-  quotePost   QuotePost?
-  picturePost PicturePost?
-  linkPost    LinkPost?
-  createdAt   DateTime     @default(now()) @map("created_at")
-  publishAt   DateTime     @updatedAt @map("publish_at")
-  userId      String?      @map("user_id")
-  comments    Comment[]
-  favorite    Favorite[]
+  postId         Int          @id @default(autoincrement()) @map("post_id")
+  tags           Tag[]
+  postType       PostType     @map("post_type")
+  videoPost      VideoPost?
+  textPost       TextPost?
+  quotePost      QuotePost?
+  picturePost    PicturePost?
+  linkPost       LinkPost?
+  createdAt      DateTime     @default(now()) @map("created_at")
+  publishAt      DateTime     @updatedAt @map("publish_at")
+  userId         String?      @map("user_id")
+  comments       Comment[]
+  favorite       Favorite[]
+  isDraft        Boolean      @default(false) @map("is_draft")
+  originalPostId Int?         @map("original_post_id")
 
   @@map("posts")
 }
@@ -40,7 +42,7 @@ model PostEntity {
 model VideoPost {
   id        Int        @id @default(autoincrement()) @map("video_post_id")
   title     String     @default("")
-  linkVideo String     @default("")
+  linkVideo String     @default("") @map("link_video")
   post      PostEntity @relation(fields: [postId], references: [postId], onDelete: Cascade, onUpdate: Cascade)
   postId    Int        @unique @map("post_id")
 
@@ -60,7 +62,7 @@ model TextPost {
 
 model QuotePost {
   id     Int        @id @default(autoincrement()) @map("quote_post_id")
-  name   String     @default("")
+  text   String     @default("")
   autor  String     @default("")
   post   PostEntity @relation(fields: [postId], references: [postId], onDelete: Cascade, onUpdate: Cascade)
   postId Int        @unique @map("post_id")

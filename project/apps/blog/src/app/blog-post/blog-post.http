@@ -22,7 +22,7 @@ DELETE http://localhost:3333/api/posts/3 HTTP/1.1
 ###
 
 # Get post by id
-GET http://localhost:3333/api/posts/19 HTTP/1.1
+GET http://localhost:3333/api/posts/2 HTTP/1.1
 
 ###
 

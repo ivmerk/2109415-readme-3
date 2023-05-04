@@ -17,7 +17,7 @@ export class BlogPostService {
   public async createPost(dto: CreatePostDto): Promise<PostEntity> {
     const tagsSet = new Set(dto.tags)
     const tags = await this.blogTagRepository.findByIds(Array.from(tagsSet))
-    const postEntity = new BlogPostEntity({ ...dto, tags, comments: [], favorite: [] });
+    const postEntity = new BlogPostEntity({ ...dto, tags, isDraft: false, comments: [], favorite: [] });
     return this.blogPostRepository.create(postEntity);
   }
 
