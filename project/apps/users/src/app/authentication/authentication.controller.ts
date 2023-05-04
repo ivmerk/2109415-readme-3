@@ -8,7 +8,7 @@ import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { MongoidValidationPipe } from '@project/shared/shared-pipes';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
 import { NotifyService } from '../notify/notify.service';
-import { RequestWithUser } from '@project/shared/app-types';
+import { RequestWithTokenPayload, RequestWithUser } from '@project/shared/app-types';
 import { JwtRefreshGuard } from './guards/jwt-refresh.guard';
 import { LocalAuthGuard } from './guards/local-auth-guard';
 
@@ -73,4 +73,11 @@ export class AuthenticationController {
     return this.authService.createUserToken(user);
   }
 
+  @UseGuards(JwtAuthGuard)
+  @Post('check')
+  public async checkToken(@Req() { user: payload }: RequestWithTokenPayload) {
+    return payload;
+  }
+
 }
+
