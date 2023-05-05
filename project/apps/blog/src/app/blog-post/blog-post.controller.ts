@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, ParseIntPipe, Patch, Post, Query } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, ParseIntPipe, Patch, Post, Query, UseGuards } from '@nestjs/common';
 import { BlogPostService } from './blog-post.service';
 import { fillObject } from '@project/util/util-core';
 import { PostRdo } from './rdo/post.rdo';
@@ -15,7 +15,7 @@ export class BlogPostController {
   @Get('/:id')
   async show(@Param('id', ParseIntPipe) id: number) {
     const post = await this.blogPostService.getPost(id);
-    return fillObject(PostRdo, post);
+    return {...fillObject(PostRdo, post), commentsLength: post.comments.length, favoriteLength: post.favorite.length};
   }
 
   @Get('/')

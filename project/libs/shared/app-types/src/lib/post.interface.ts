@@ -17,6 +17,8 @@ export interface PostEntity {
   linkPost?: LinkPostBody,
   comments: Comment[];
   favorite: Favorite[];
+  isDraft: boolean;
+  originalPostId?: number;
 }
 
 
@@ -35,7 +37,7 @@ export interface TextPostBody {
 
 export interface QuotePostBody {
   id?: number,
-  name: string,
+  text: string,
   autor: string,
 }
 

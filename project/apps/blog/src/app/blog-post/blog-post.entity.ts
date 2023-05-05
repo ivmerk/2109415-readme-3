@@ -15,6 +15,8 @@ import { Entity } from '@project/util/util-types';
     public linkPost: LinkPostBody;
     public comments: Comment[];
     public favorite: Favorite[];
+    public isDraft: boolean;
+    public originalPostId: number;
 
 
     constructor(post: PostEntity) {
@@ -33,6 +35,8 @@ import { Entity } from '@project/util/util-types';
       this.comments = [];
       this.favorite = [];
       this.createdAt = new Date();
+      this.isDraft = entity.isDraft;
+      this,this.originalPostId = entity.originalPostId;
     }
 
     public toObject(): PostEntity {

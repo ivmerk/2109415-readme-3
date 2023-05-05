@@ -1,5 +1,5 @@
 export interface Favorite{
-  id?: number,
+  favoriteId?: number,
   userId: string,
   postId: number,
   createdAt: Date;

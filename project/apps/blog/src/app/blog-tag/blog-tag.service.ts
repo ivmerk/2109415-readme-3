@@ -17,7 +17,7 @@ export class BlogTagService {
   return this.blogTagRepository.create(tagEntity);
  }
 
- async findExisting(text: string): Promise<Tag> | null {
+ async checkTagExisting(text: string): Promise<Tag> | null {
   if ((text.length >= BLOG_TAG_LENGTH.MIN) && (text.length <= BLOG_TAG_LENGTH.MAX) &&!(text.includes(' '))){
     return this.blogTagRepository.findByTagText(text);
   }

@@ -1,7 +1,7 @@
-import { LinkPostBody, PicturePostBody,   QuotePostBody,  TextPostBody, VideoPostBody, postTypes } from "@project/shared/app-types";
+import { LinkPostBody, PicturePostBody,  PostType, QuotePostBody, Tag, TextPostBody, VideoPostBody, postTypes } from "@project/shared/app-types";
 import { Type } from "class-transformer";
-import { ArrayMaxSize, Contains, IsArray, IsBoolean, IsNotEmpty,  IsNumber,  IsOptional,  IsString, IsUrl, MaxLength, MinLength, ValidateNested } from "class-validator";
-import { QUOTE_POST_AUTOR_LENGTH, QUOTE_POST_TEXT_LENGTH, TEXT_POST_ANNOUNCEMENT_LENGTH, TEXT_POST_NAME_LENGTH, TEXT_POST_TEXT_LENGTH, VIDEO_TITLE_LENGTH } from "../blog-post.constant";
+import { ArrayMaxSize, Contains, IsArray, IsBoolean, IsIn,  IsNotEmpty,  IsNumber,  IsOptional,  IsString, IsUrl, MaxLength, MinLength, ValidateNested } from "class-validator";
+import { QUOTE_POST_AUTOR_LENGTH, QUOTE_POST_TEXT_LENGTH, TEXT_POST_ANNOUNCEMENT_LENGTH, TEXT_POST_NAME_LENGTH, TEXT_POST_TEXT_LENGTH, VIDEO_TITLE_LENGTH } from "../bff.constant";
 
 class VideoPostDto implements VideoPostBody {
   @IsString()
@@ -60,7 +60,10 @@ class LinkPostDto implements LinkPostBody{
   options?: string;
 }
 
-export class UpdatePostDto {
+export class AddNewPostDto {
+  @IsIn(postTypes)
+  public postType: PostType;
+
   @ValidateNested()
   @Type(() => VideoPostDto)
   public videoPost?: VideoPostDto;
@@ -87,14 +90,13 @@ export class UpdatePostDto {
   public tags?: number[];
 
   @IsString()
-  @IsOptional()
-  public userId?: string;
+  public userId: string;
 
   @IsBoolean()
   @IsOptional()
-  public idDraft?: boolean;
+  public idDraft: boolean;
 
   @IsNumber()
   @IsOptional()
-  public originalPostId?: number;
+  public originalPostId: number;
 }

@@ -3,9 +3,9 @@ POST http://localhost:3333/api/comment HTTP/1.1
 Content-Type: application/json
 
 {
-  "message": "more messages",
-  "userId": "16",
-  "postId": 2
+  "message": "more messagesmore messagesmore messagesmore messages",
+  "userId": "6452093011bb635659997ac2",
+  "postId": 34
 }
 
 ###

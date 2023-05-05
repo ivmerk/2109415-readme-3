@@ -17,7 +17,7 @@ export class BlogPostService {
   public async createPost(dto: CreatePostDto): Promise<PostEntity> {
     const tagsSet = new Set(dto.tags)
     const tags = await this.blogTagRepository.findByIds(Array.from(tagsSet))
-    const postEntity = new BlogPostEntity({ ...dto, tags, comments: [], favorite: [] });
+    const postEntity = new BlogPostEntity({ ...dto, tags, isDraft: false, comments: [], favorite: [] });
     return this.blogPostRepository.create(postEntity);
   }
 
@@ -33,8 +33,13 @@ export class BlogPostService {
     return this.blogPostRepository.find(query);
   }
 
-  public async updatePost(_id: number, _dto: UpdatePostDto): Promise<PostEntity> {
-    throw new Error('Not implemented…');
+  public async updatePost(id: number, dto: UpdatePostDto): Promise<PostEntity> {
+    const tagsSet = new Set(dto.tags)
+    const tags = await this.blogTagRepository.findByIds(Array.from(tagsSet))
+    const oldPost = await this.blogPostRepository.findById(id);
+    const postEntity = new BlogPostEntity({...oldPost, ...dto, tags, isDraft: false});
+    postEntity.createdAt = oldPost.createdAt;
+    return this.blogPostRepository.update(id, postEntity)
   }
 
 }
