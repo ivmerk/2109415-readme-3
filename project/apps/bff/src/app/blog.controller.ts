@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, ParseIntPipe, Patch, Post, Req, UseFilters, UseGuards, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpCode, HttpException, HttpStatus, Param,  Patch, Post, Req, UseFilters, UseGuards, UseInterceptors } from '@nestjs/common';
 import { AxiosExceptionFilter } from './filters/axios-exception.filter';
 import { HttpService } from '@nestjs/axios';
 import { CheckAuthGuard } from './guards/check-auth.guard';
@@ -27,7 +27,6 @@ export class BlogController {
   @Get('/:id')
   public async index( @Param('id') id: string) {
     const {data} = await this.httpService.axiosRef.get(`${ApplicationServiceURL.Blog}/${id}`);
-    console.log(`${ApplicationServiceURL.Blog}/${id}`)
     return data;
   }
 
@@ -41,6 +40,8 @@ export class BlogController {
 
       const{data} = await this.httpService.axiosRef.patch(`${ApplicationServiceURL.Blog}/${id}`, dto);
       return data;
+    } else {
+      throw new HttpException('Forbidden', HttpStatus.FORBIDDEN);
     }
   }
 
@@ -51,6 +52,9 @@ export class BlogController {
     const {data} = await this.httpService.axiosRef.get(`${ApplicationServiceURL.Blog}/${id}`);
     if (payload.sub === data.userId){
       await this.httpService.axiosRef.delete(`${ApplicationServiceURL.Blog}/${id}`);
+    } else {
+      throw new HttpException('Forbidden', HttpStatus.FORBIDDEN);
     }
+
   }
 }

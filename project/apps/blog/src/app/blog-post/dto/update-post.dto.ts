@@ -1,6 +1,6 @@
-import { LinkPostBody, PicturePostBody,   QuotePostBody, Tag, TextPostBody, VideoPostBody, postTypes } from "@project/shared/app-types";
+import { LinkPostBody, PicturePostBody,   QuotePostBody,  TextPostBody, VideoPostBody, postTypes } from "@project/shared/app-types";
 import { Type } from "class-transformer";
-import { ArrayMaxSize, Contains, IsArray, IsBoolean, IsDate, IsIn,  IsNotEmpty,  IsNumber,  IsOptional,  IsString, IsUrl, MaxLength, MinLength, ValidateNested } from "class-validator";
+import { ArrayMaxSize, Contains, IsArray, IsBoolean, IsNotEmpty,  IsNumber,  IsOptional,  IsString, IsUrl, MaxLength, MinLength, ValidateNested } from "class-validator";
 import { QUOTE_POST_AUTOR_LENGTH, QUOTE_POST_TEXT_LENGTH, TEXT_POST_ANNOUNCEMENT_LENGTH, TEXT_POST_NAME_LENGTH, TEXT_POST_TEXT_LENGTH, VIDEO_TITLE_LENGTH } from "../blog-post.constant";
 
 class VideoPostDto implements VideoPostBody {
@@ -89,11 +89,6 @@ export class UpdatePostDto {
   @IsString()
   @IsOptional()
   public userId?: string;
-
-//возможно лишнее
-  @IsDate()
-  @IsOptional()
-  public publishAt?: Date;
 
   @IsBoolean()
   @IsOptional()

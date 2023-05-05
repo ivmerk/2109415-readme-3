@@ -39,7 +39,6 @@ export class BlogPostService {
     const oldPost = await this.blogPostRepository.findById(id);
     const postEntity = new BlogPostEntity({...oldPost, ...dto, tags, isDraft: false});
     postEntity.createdAt = oldPost.createdAt;
-   console.log (oldPost)
     return this.blogPostRepository.update(id, postEntity)
   }
 

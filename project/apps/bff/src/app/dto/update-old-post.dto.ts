@@ -90,11 +90,6 @@ export class UpdateOldPostDto {
   @IsOptional()
   public userId?: string;
 
-//возможно лишнее
-  @IsDate()
-  @IsOptional()
-  public publishAt?: Date;
-
   @IsBoolean()
   @IsOptional()
   public idDraft?: boolean;

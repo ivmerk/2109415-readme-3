@@ -129,7 +129,6 @@ export class BlogPostRepository implements CRUDRepository<BlogPostEntity, number
 
   public update(id: number, item: BlogPostEntity): Promise<PostEntity> {
     const entityData = item.toObject();
-    console.log(entityData);
     return this.prisma.postEntity.update({
       where:{
         postId: id
