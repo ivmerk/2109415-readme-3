@@ -44,3 +44,7 @@ Content-Type: application/json
   "tags": [1,1]
 }
 ###
+# Get post by id
+GET http://localhost:4000/api/blog/34 HTTP/1.1
+
+###

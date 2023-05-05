@@ -36,6 +36,14 @@ export class PostRdo {
   public favorite: Favorite[];
 
   @Expose()
+  public createdAt: Date;
+
+  @Expose()
   public publishAt: Date;
 
+  @Expose()
+  public isDraft: boolean;
+
+  @Expose()
+  public originalPostId?: number;
 }

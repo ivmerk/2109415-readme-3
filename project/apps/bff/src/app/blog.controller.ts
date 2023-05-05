@@ -1,4 +1,4 @@
-import { Body, Controller, Post, UseFilters, UseGuards, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Get, Param, ParseIntPipe, Post, UseFilters, UseGuards, UseInterceptors } from '@nestjs/common';
 import { AxiosExceptionFilter } from './filters/axios-exception.filter';
 import { HttpService } from '@nestjs/axios';
 import { CheckAuthGuard } from './guards/check-auth.guard';
@@ -19,6 +19,13 @@ export class BlogController {
   @Post('/')
   public async create(@Body() dto: AddNewPostDto) {
     const { data } = await this.httpService.axiosRef.post(`${ApplicationServiceURL.Blog}/`, dto);
+    return data;
+  }
+
+  @Get('/:id')
+  public async index( @Param('id') id: string) {
+    const {data} = await this.httpService.axiosRef.get(`${ApplicationServiceURL.Blog}/${id}`);
+    console.log(`${ApplicationServiceURL.Blog}/${id}`)
     return data;
   }
 
