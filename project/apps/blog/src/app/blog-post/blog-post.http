@@ -30,7 +30,7 @@ GET http://localhost:3333/api/posts/34 HTTP/1.1
 GET http://localhost:3333/api/posts?sortType=byComments HTTP/1.1
 
 ###
-
+# Update posr by id
 PATCH http://localhost:3333/api/posts/34 HTTP/1.1
 Content-Type: application/json
 

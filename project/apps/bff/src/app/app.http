@@ -31,7 +31,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDUyMDkzM
 
 # Create a new post
 POST http://localhost:4000/api/blog HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDUyMDkzMDExYmI2MzU2NTk5OTdhYzIiLCJlbWFpbCI6InVzZXJAbmZmb29vby5sb2NhbCIsInJvbGUiOiJ1c2VyIiwibGFzdG5hbWUiOiJTbWl0aCIsImZpcnN0bmFtZSI6Iktla3MiLCJpYXQiOjE2ODMyMjIzMTgsImV4cCI6MTY4MzIyMjkxOH0.Y1dD7oz5GwI5M3K49PRl9Tblu8xTGcwmsjFBa__3GLI
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDUyMDkzMDExYmI2MzU2NTk5OTdhYzIiLCJlbWFpbCI6InVzZXJAbmZmb29vby5sb2NhbCIsInJvbGUiOiJ1c2VyIiwibGFzdG5hbWUiOiJTbWl0aCIsImZpcnN0bmFtZSI6Iktla3MiLCJpYXQiOjE2ODMyOTEzMzEsImV4cCI6MTY4MzI5MTkzMX0.QQfbv3JtsDSCkKqSoW1PsmpMx90VT6cldPcoyIj0TTI
 Content-Type: application/json
 
 {
@@ -46,5 +46,17 @@ Content-Type: application/json
 ###
 # Get post by id
 GET http://localhost:4000/api/blog/34 HTTP/1.1
+
+###
+# Update posr by id
+PATCH http://localhost:4000/api/blog/35 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDUyMDkzMDExYmI2MzU2NTk5OTdhYzIiLCJlbWFpbCI6InVzZXJAbmZmb29vby5sb2NhbCIsInJvbGUiOiJ1c2VyIiwibGFzdG5hbWUiOiJTbWl0aCIsImZpcnN0bmFtZSI6Iktla3MiLCJpYXQiOjE2ODMyOTIwMDksImV4cCI6MTY4MzI5MjYwOX0.VzU5iB51ZMJdQzbktaa5xxaPgHhWi2sk7NI3NKPuVc4
+Content-Type: application/json
+
+{
+  "videoPost": {
+    "title": "UPDATED!!its some leettesrand little more name1",
+    "linkVideo": "https://www.youtube.com/watch?v=NYGL4hxPuxs"}
+}
 
 ###
