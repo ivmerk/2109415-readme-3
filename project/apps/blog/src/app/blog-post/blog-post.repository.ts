@@ -127,7 +127,59 @@ export class BlogPostRepository implements CRUDRepository<BlogPostEntity, number
     });
   }
 
-  public update(_id: number, _item: BlogPostEntity): Promise<PostEntity> {
-    return Promise.resolve(undefined);
-  }
+  public update(id: number, item: BlogPostEntity): Promise<PostEntity> {
+    const entityData = item.toObject();
+    console.log(entityData);
+    return this.prisma.postEntity.update({
+      where:{
+        postId: id
+      },
+      data:{
+        ...entityData,
+        tags:{
+          connect: entityData.tags.map(({tagId}) => ({tagId}))
+        },
+        videoPost: item.videoPost !=null ? {
+          update: {
+            title:item.videoPost.title != null ?item.videoPost.title: undefined,
+            linkVideo:item.videoPost.linkVideo  != null ? item.videoPost.linkVideo: undefined}
+        } : undefined,
+        textPost: item.textPost != null ? {
+          update:{
+            name: item.textPost.name != null ? item.textPost.name : undefined,
+            announcement: item.textPost.announcement !=  null ? item.textPost.announcement : undefined,
+            text: item.textPost.text !=null ? item.textPost.text : undefined
+          }
+        } : undefined,
+        quotePost: item.quotePost != null ? {
+          update: item.quotePost
+        } : undefined,
+        picturePost: item.picturePost != null ? {
+          update: item.picturePost
+        } : undefined,
+        linkPost: item.linkPost != null ? {
+          update: item.linkPost
+        } : undefined,
+        publishAt: {
+          set: new Date()},
+        comments:{
+          connect: entityData.comments.map(({commentId}) => ({commentId}))
+        },
+        favorite:{
+          connect: entityData.favorite.map(({favoriteId}) => ({favoriteId}))
+        }
+      },
+      include:{
+        videoPost: true,
+        textPost: true,
+        quotePost: true,
+        picturePost: true,
+        linkPost: true,
+        comments: true,
+        favorite: true,
+        tags: true,
+      }
+      }
+
+    )}
 }
