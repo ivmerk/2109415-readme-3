@@ -10,6 +10,7 @@ import { RequestWithTokenPayload } from '@project/shared/app-types';
 import { AddNewCommentDto } from './dto/add-new-comment.dto';
 import { CommentQuery } from './query/comment.query';
 import { DEFAULT_COMMENT_COUNT_LIMIT } from './bff.constant';
+import { PostQuery } from './query/post.query';
 
 @Controller('blog')
 @UseFilters(AxiosExceptionFilter)
@@ -30,6 +31,13 @@ export class BlogController {
   @Get('/:id')
   public async indexPost( @Param('id') id: string) {
     const {data} = await this.httpService.axiosRef.get(`${ApplicationServiceURL.Blog}/${id}`);
+    return data;
+  }
+
+  @Get('/')
+  public async showPosts(@Query() query: PostQuery){
+    console.log(query)
+    const {data} = await this.httpService.axiosRef.get(`${ApplicationServiceURL.Blog}?limit=${query.limit!=0? query.limit:DEFAULT_COMMENT_COUNT_LIMIT}&page=${query.page?query.page:1}${query.sortType ? '&'+ query.sortType : ''}`)
     return data;
   }
 

@@ -60,6 +60,10 @@ Content-Type: application/json
 GET http://localhost:4000/api/blog/34 HTTP/1.1
 
 ###
+# Get all posts
+GET http://localhost:4000/api/blog?sortType=byComments HTTP/1.1
+
+###
 # Update posr by id
 PATCH http://localhost:4000/api/blog/35 HTTP/1.1
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDUyMDkzMDExYmI2MzU2NTk5OTdhYzIiLCJlbWFpbCI6InVzZXJAbmZmb29vby5sb2NhbCIsInJvbGUiOiJ1c2VyIiwibGFzdG5hbWUiOiJTbWl0aCIsImZpcnN0bmFtZSI6Iktla3MiLCJpYXQiOjE2ODMyOTIwMDksImV4cCI6MTY4MzI5MjYwOX0.VzU5iB51ZMJdQzbktaa5xxaPgHhWi2sk7NI3NKPuVc4
@@ -100,6 +104,6 @@ Authorization: Bearer
 # ###
 
 # Get comments by postId
-GET http://localhost:4000/api/blog/comment/34?limit=3 HTTP/1.1
+GET http://localhost:4000/api/blog/comment/34?limit=5&page=2 HTTP/1.1
 
 ###
