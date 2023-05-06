@@ -37,7 +37,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDUyMDkzM
 
 # Unsubsribe from user
 POST http://localhost:4000/api/users/unsubcribe/6448cbf2f69083362a2ab69d HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDUyMDkzMDExYmI2MzU2NTk5OTdhYzIiLCJlbWFpbCI6InVzZXJAbmZmb29vby5sb2NhbCIsInJvbGUiOiJ1c2VyIiwibGFzdG5hbWUiOiJTbWl0aCIsImZpcnN0bmFtZSI6Iktla3MiLCJpYXQiOjE2ODMzNjEzMzksImV4cCI6MTY4MzM2MTkzOX0.eYxB2IIDwMbgnLfUWt_9g2eTy0XMuY7U3zxpeiD_DjM
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDUyMDkzMDExYmI2MzU2NTk5OTdhYzIiLCJlbWFpbCI6InVzZXJAbmZmb29vby5sb2NhbCIsInJvbGUiOiJ1c2VyIiwibGFzdG5hbWUiOiJTbWl0aCIsImZpcnN0bmFtZSI6Iktla3MiLCJpYXQiOjE2ODMzNzA4NjAsImV4cCI6MTY4MzM3MTQ2MH0.dwdn2BFdS6bbJ5dF0SuJ3Cd_WAA9uLXtEwOkKuBqzrY
 
 
 ####
@@ -77,3 +77,24 @@ DELETE http://localhost:4000/api/blog/34 HTTP/1.1
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDUyMDkzMDExYmI2MzU2NTk5OTdhYzIiLCJlbWFpbCI6InVzZXJAbmZmb29vby5sb2NhbCIsInJvbGUiOiJ1c2VyIiwibGFzdG5hbWUiOiJTbWl0aCIsImZpcnN0bmFtZSI6Iktla3MiLCJpYXQiOjE2ODMyOTgyOTcsImV4cCI6MTY4MzI5ODg5N30.8A6L6ElTiEz77Qm1N1LLuyVqn-cBEck2LXYWgv-8604
 ###
 
+# Create a new comment
+POST http://localhost:4000/api/blog/comment HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDUyMDkzMDExYmI2MzU2NTk5OTdhYzIiLCJlbWFpbCI6InVzZXJAbmZmb29vby5sb2NhbCIsInJvbGUiOiJ1c2VyIiwibGFzdG5hbWUiOiJTbWl0aCIsImZpcnN0bmFtZSI6Iktla3MiLCJpYXQiOjE2ODMzNzYyOTcsImV4cCI6MTY4MzM3Njg5N30.h9zpy3lOOQbNnQ24chk7FNM8L3pUwUC4uTemujDyfbg
+Content-Type: application/json
+
+{
+  "message": "BFFmore messagesmore messagesmore messagesmore messages",
+  "postId": 34
+}
+
+###
+
+# Delete the post by id
+DELETE http://localhost:4000/api/blog/comment/6 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDUyMDkzMDExYmI2MzU2NTk5OTdhYzIiLCJlbWFpbCI6InVzZXJAbmZmb29vby5sb2NhbCIsInJvbGUiOiJ1c2VyIiwibGFzdG5hbWUiOiJTbWl0aCIsImZpcnN0bmFtZSI6Iktla3MiLCJpYXQiOjE2ODMzNzk1NjQsImV4cCI6MTY4MzM4MDE2NH0._lh0rpQFqZWVTKvUvafpUaclTgyX_DV3S5k3OIeoXWI
+###
+
+# Get comment by id
+GET http://localhost:4000/api/blog/comment/6 HTTP/1.1
+
+###

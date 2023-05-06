@@ -1,9 +1,8 @@
-import { Body, Controller, Get, Param, ParseIntPipe, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post } from '@nestjs/common';
 import { CommentService } from './comment.service';
 import { fillObject } from '@project/util/util-core';
 import { CommentRdo } from './rdo/comment.rdo';
 import { CreateComment } from './dto/create-comment.dto';
-import { PostRdo } from '../blog-post/rdo/post.rdo';
 
 @Controller('comment')
 export class CommentController {
@@ -20,6 +19,11 @@ export class CommentController {
   @Post('/')
   async create(@Body() dto:CreateComment) {
     const newComment = await this.commentService.createComment(dto);
-    return fillObject(PostRdo, newComment);
+    return fillObject(CommentRdo, newComment);
+  }
+
+  @Delete('/:id')
+  async delete(@Param ('id', ParseIntPipe) id: number) {
+    await this.commentService.deleteComment(id);
   }
 }
