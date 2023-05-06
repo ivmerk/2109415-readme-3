@@ -1,7 +1,7 @@
 import { CRUDRepository } from '@project/util/util-types';
 import { BlogUserEntity } from './blog-user.entity';
 import { User } from '@project/shared/app-types';
-import { Injectable } from '@nestjs/common';
+import {  Injectable } from '@nestjs/common';
 import * as crypto from 'crypto';
 
 @Injectable()
@@ -20,18 +20,15 @@ export class BlogUserMemoryRepository implements CRUDRepository<BlogUserEntity, 
       return {...this.repository[id]};
     }
 
-    return null;
   }
 
   public async findByEmail(email: string): Promise<User | null> {
     const existUser = Object.values(this.repository)
       .find((userItem) => userItem.email === email);
 
-    if (! existUser) {
-      return null;
+    if (existUser) {
+      return { ...existUser};
     }
-
-    return { ...existUser};
   }
 
   public async destroy(id: string): Promise<void> {

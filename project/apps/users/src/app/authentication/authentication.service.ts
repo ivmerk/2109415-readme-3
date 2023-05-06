@@ -28,7 +28,8 @@ export class AuthenticationService {
     const blogUser = {
       email, firstname, lastname, role: UserRole.User,
       avatar: '', dateBirth: dayjs(dateBirth).toDate(),
-      passwordHash: ''
+      passwordHash: '',
+      subscribe: null
     };
 
     const existUser = await this.blogUserRepository
@@ -78,4 +79,25 @@ export class AuthenticationService {
     }
   }
 
+  public async subscribe(idReader: string, idWriter: string): Promise<User>{
+
+    const existUser = await  this.blogUserRepository.findById(idReader);
+    if (!existUser ) {
+      throw new NotFoundException(AUTH_USER_NOT_FOUND);
+    }
+    if (!existUser.subscribe.includes(idWriter)){
+      existUser.subscribe.push(idWriter);
+    return this.blogUserRepository.update(idReader, new BlogUserEntity(existUser));
+  }}
+
+  public async unSubscribe(idReader: string, idWriter: string): Promise<User>{
+    const existUser = await  this.blogUserRepository.findById(idReader);
+    if (!existUser ) {
+      throw new NotFoundException(AUTH_USER_NOT_FOUND);
+    }
+    if (existUser.subscribe.includes(idWriter)){
+      existUser.subscribe.splice(existUser.subscribe.indexOf(idWriter),1);
+    return this.blogUserRepository.update(idReader, new BlogUserEntity(existUser));
+  }
+}
 }

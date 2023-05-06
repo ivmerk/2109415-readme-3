@@ -1,7 +1,6 @@
 # Create a new user
 POST http://localhost:4000/api/users/register HTTP/1.1
 Content-Type: application/json
-
 {
   "email": "user34@nffoooo.local",
   "dateBirth": "2012-02-12",
@@ -9,7 +8,6 @@ Content-Type: application/json
   "lastname": "Smith",
   "password": "123456"
 }
-
 ###
 
 # Login user by email and password
@@ -20,22 +18,29 @@ Content-Type: application/json
   "email": "user@nffoooo.local",
   "password": "123456"
 }
-
 ###
 
 # Get new JWT pair
 POST http://localhost:4000/api/users/refresh HTTP/1.1
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDUyMDkzMDExYmI2MzU2NTk5OTdhYzIiLCJlbWFpbCI6InVzZXJAbmZmb29vby5sb2NhbCIsInJvbGUiOiJ1c2VyIiwibGFzdG5hbWUiOiJTbWl0aCIsImZpcnN0bmFtZSI6Iktla3MiLCJ0b2tlbklkIjoiYWQ3OWNjYTctOWQ0MC00NTkwLTg3ZTUtMGU2MTQ5NzdlNWNiIiwiaWF0IjoxNjgzMTA2NDI1LCJleHAiOjE2ODU2OTg0MjV9.0dKrN3_6gKih69aexc35_GTLws_bjVuTyDmSMSpFGNI
-
 ###
 
 # Check user token
 POST http://localhost:4000/api/users/check HTTP/1.1
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDUyMDkzMDExYmI2MzU2NTk5OTdhYzIiLCJlbWFpbCI6InVzZXJAbmZmb29vby5sb2NhbCIsInJvbGUiOiJ1c2VyIiwibGFzdG5hbWUiOiJTbWl0aCIsImZpcnN0bmFtZSI6Iktla3MiLCJpYXQiOjE2ODMyOTMxNzAsImV4cCI6MTY4MzI5Mzc3MH0.okHWrXS9AGh3314IL7VaBgoZf8D4ZGRtfch3EqOHs2w
-
-
 ###
 
+# Subsribe to user
+POST http://localhost:4000/api/users/subcribe/6448cbf2f69083362a2ab69d HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDUyMDkzMDExYmI2MzU2NTk5OTdhYzIiLCJlbWFpbCI6InVzZXJAbmZmb29vby5sb2NhbCIsInJvbGUiOiJ1c2VyIiwibGFzdG5hbWUiOiJTbWl0aCIsImZpcnN0bmFtZSI6Iktla3MiLCJpYXQiOjE2ODMzNjEzMzksImV4cCI6MTY4MzM2MTkzOX0.eYxB2IIDwMbgnLfUWt_9g2eTy0XMuY7U3zxpeiD_DjM
+####
+
+# Unsubsribe from user
+POST http://localhost:4000/api/users/unsubcribe/6448cbf2f69083362a2ab69d HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDUyMDkzMDExYmI2MzU2NTk5OTdhYzIiLCJlbWFpbCI6InVzZXJAbmZmb29vby5sb2NhbCIsInJvbGUiOiJ1c2VyIiwibGFzdG5hbWUiOiJTbWl0aCIsImZpcnN0bmFtZSI6Iktla3MiLCJpYXQiOjE2ODMzNjEzMzksImV4cCI6MTY4MzM2MTkzOX0.eYxB2IIDwMbgnLfUWt_9g2eTy0XMuY7U3zxpeiD_DjM
+
+
+####
 # Create a new post
 POST http://localhost:4000/api/blog HTTP/1.1
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDUyMDkzMDExYmI2MzU2NTk5OTdhYzIiLCJlbWFpbCI6InVzZXJAbmZmb29vby5sb2NhbCIsInJvbGUiOiJ1c2VyIiwibGFzdG5hbWUiOiJTbWl0aCIsImZpcnN0bmFtZSI6Iktla3MiLCJpYXQiOjE2ODMyOTEzMzEsImV4cCI6MTY4MzI5MTkzMX0.QQfbv3JtsDSCkKqSoW1PsmpMx90VT6cldPcoyIj0TTI
@@ -71,3 +76,4 @@ Content-Type: application/json
 DELETE http://localhost:4000/api/blog/34 HTTP/1.1
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDUyMDkzMDExYmI2MzU2NTk5OTdhYzIiLCJlbWFpbCI6InVzZXJAbmZmb29vby5sb2NhbCIsInJvbGUiOiJ1c2VyIiwibGFzdG5hbWUiOiJTbWl0aCIsImZpcnN0bmFtZSI6Iktla3MiLCJpYXQiOjE2ODMyOTgyOTcsImV4cCI6MTY4MzI5ODg5N30.8A6L6ElTiEz77Qm1N1LLuyVqn-cBEck2LXYWgv-8604
 ###
+

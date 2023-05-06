@@ -41,3 +41,16 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDUyMDkzM
 
 
 ###
+# Subsribe to user
+POST http://localhost:3000/api/auth/subcribe/6448cbf2f69083362a2ab69d HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDUyMDkzMDExYmI2MzU2NTk5OTdhYzIiLCJlbWFpbCI6InVzZXJAbmZmb29vby5sb2NhbCIsInJvbGUiOiJ1c2VyIiwibGFzdG5hbWUiOiJTbWl0aCIsImZpcnN0bmFtZSI6Iktla3MiLCJpYXQiOjE2ODMzNTg3OTMsImV4cCI6MTY4MzM1OTM5M30.iIT_56jqfiRWehGiYUxGFnv2TvwehtbcAs8IQ6WMQPw
+
+
+####
+
+# Unsubsribe from user
+POST http://localhost:3000/api/auth/unsubcribe/6448cbf2f69083362a2ab69d HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDUyMDkzMDExYmI2MzU2NTk5OTdhYzIiLCJlbWFpbCI6InVzZXJAbmZmb29vby5sb2NhbCIsInJvbGUiOiJ1c2VyIiwibGFzdG5hbWUiOiJTbWl0aCIsImZpcnN0bmFtZSI6Iktla3MiLCJpYXQiOjE2ODMzNTk0MTcsImV4cCI6MTY4MzM2MDAxN30.y0T9jjX9nOq1DZvYmFv_SJY6-CXani2TanqgtQWfXNY
+
+
+####
