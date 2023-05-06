@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, HttpCode, HttpException, HttpStatus, Param,  Patch, Post, Req, UseFilters, UseGuards, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpCode, HttpException, HttpStatus, Param,  Patch, Post, Query, Req, UseFilters, UseGuards, UseInterceptors } from '@nestjs/common';
 import { AxiosExceptionFilter } from './filters/axios-exception.filter';
 import { HttpService } from '@nestjs/axios';
 import { CheckAuthGuard } from './guards/check-auth.guard';
@@ -8,6 +8,8 @@ import { ApplicationServiceURL } from './app.config';
 import { UpdateOldPostDto } from './dto/update-old-post.dto';
 import { RequestWithTokenPayload } from '@project/shared/app-types';
 import { AddNewCommentDto } from './dto/add-new-comment.dto';
+import { CommentQuery } from './query/comment.query';
+import { DEFAULT_COMMENT_COUNT_LIMIT } from './bff.constant';
 
 @Controller('blog')
 @UseFilters(AxiosExceptionFilter)
@@ -71,17 +73,22 @@ export class BlogController {
     return data;
   }
 
-  @Get('comment/:id')
-  public async getComment (@Param('id') id: number){
-    const {data} = await this.httpService.axiosRef.get(`${ApplicationServiceURL.Comments}/${id}`)
+  @Get('comment/:postId')
+  public async getComments (@Param('postId') postId, @Query() query: CommentQuery){
+    const {data} = await this.httpService.axiosRef.get(`${ApplicationServiceURL.Comments}/${postId}?limit=${query.limit!=0? query.limit:DEFAULT_COMMENT_COUNT_LIMIT}&page=${query.page?query.page:1}`)
     return data;
   }
+
+  // @Get('comment/:id')
+  // public async getComment (@Param('id') id: number){
+  //   const {data} = await this.httpService.axiosRef.get(`${ApplicationServiceURL.Comments}/${id}`)
+  //   return data;
+  // }
 
   @UseGuards(CheckAuthGuard)
   @Delete('comment/:id')
   public async deleteComment (@Param('id') id: number,@Req() {user: payload}: RequestWithTokenPayload ){
     const {data} = await this.httpService.axiosRef.get(`${ApplicationServiceURL.Comments}/${id}`)
-    console.log (data.userId, payload.sub, `${ApplicationServiceURL.Comments}/${id}`)
     if (data.userId === payload.sub){
     await this.httpService.axiosRef.delete(`${ApplicationServiceURL.Comments}/${id}`)
   } else { throw new HttpException('Forbidden', HttpStatus.FORBIDDEN)}

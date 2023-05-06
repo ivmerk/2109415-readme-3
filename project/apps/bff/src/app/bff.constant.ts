@@ -29,3 +29,5 @@ export enum QUOTE_POST_AUTOR_LENGTH {
 }
 
 export const LINK_POST_OPTIONS_LENGTH_MAX = 300
+
+export const DEFAULT_COMMENT_COUNT_LIMIT = 50

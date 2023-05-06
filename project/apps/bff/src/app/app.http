@@ -89,12 +89,17 @@ Content-Type: application/json
 
 ###
 
-# Delete the post by id
+# Delete the comment by id
 DELETE http://localhost:4000/api/blog/comment/6 HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDUyMDkzMDExYmI2MzU2NTk5OTdhYzIiLCJlbWFpbCI6InVzZXJAbmZmb29vby5sb2NhbCIsInJvbGUiOiJ1c2VyIiwibGFzdG5hbWUiOiJTbWl0aCIsImZpcnN0bmFtZSI6Iktla3MiLCJpYXQiOjE2ODMzNzk1NjQsImV4cCI6MTY4MzM4MDE2NH0._lh0rpQFqZWVTKvUvafpUaclTgyX_DV3S5k3OIeoXWI
+Authorization: Bearer
 ###
 
-# Get comment by id
-GET http://localhost:4000/api/blog/comment/6 HTTP/1.1
+# # Get comment by id
+# GET http://localhost:4000/api/blog/comment/6 HTTP/1.1
+
+# ###
+
+# Get comments by postId
+GET http://localhost:4000/api/blog/comment/34?limit=3 HTTP/1.1
 
 ###
