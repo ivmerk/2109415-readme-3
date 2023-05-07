@@ -6,6 +6,7 @@ import { CreatePostDto } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
 import { PostQuery } from './query/post.query';
 import { IdsDto } from './dto/ids.dto';
+import { FindByTagsDto } from './dto/find-by-tags.dto';
 
 @Controller('posts')
 export class BlogPostController {
@@ -27,8 +28,13 @@ export class BlogPostController {
 
   @Post('/feed')
   async showFeed(@Query() query:PostQuery, @Body() ids: IdsDto) {
-    console.log('blogcontroller')
     const posts = this.blogPostService.getMyFeedPosts(query, ids.ids);
+    return fillObject(PostRdo, posts);
+  }
+
+  @Post('/findbytags')
+  async showByTags(@Body() tags: FindByTagsDto){
+    const posts = this.blogPostService.getPostsByTags(tags.tags);
     return fillObject(PostRdo, posts);
   }
 

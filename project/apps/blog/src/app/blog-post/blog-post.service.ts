@@ -62,10 +62,13 @@ export class BlogPostService {
       favorite:[],
       originalPostId: originalPostId,
       userId: newOnerId,
-
     });
     return this.blogPostRepository.create(postEntity);
 
+  }
+
+  public async getPostsByTags(tagsText: string[]): Promise<PostEntity[]> {
+    return this.blogPostRepository.findByTagText(tagsText)
   }
 
 

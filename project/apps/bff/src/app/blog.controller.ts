@@ -12,6 +12,7 @@ import { CommentQuery } from './query/comment.query';
 import { DEFAULT_COMMENT_COUNT_LIMIT } from './bff.constant';
 import { PostQuery } from './query/post.query';
 import { UserIdsDto } from './dto/user-ids.dto';
+import { FindByTagsDto } from './dto/fing-by-tags.dto';
 
 @Controller('blog')
 @UseFilters(AxiosExceptionFilter)
@@ -22,17 +23,35 @@ export class BlogController {
   ) {}
 
   @UseGuards(CheckAuthGuard)
+  @Post('/repost/:id')
+  public async repost(@Param('id') id: string,  @Req() {user: payload}: RequestWithTokenPayload) {
+    const { data } = await this.httpService.axiosRef.post(`${ApplicationServiceURL.Blog}/repost/${payload.sub}/${id}`);
+    return data;
+  }
+
+  @Post('/findbytags')
+  public async showByTags(@Body() tags: FindByTagsDto){
+    const{data} = await this.httpService.axiosRef.post(`${ApplicationServiceURL.Blog}/findbytags`, tags);
+    return data;
+  }
+
+
+  @UseGuards(CheckAuthGuard)
+  @Post('/comment')
+  public async createComment(@Req() {user: payload}: RequestWithTokenPayload, @Body() dto: AddNewCommentDto){
+    const newComment = {
+      message: dto.message,
+      userId: payload.sub,
+      postId: dto.postId
+    }
+    const { data } = await this.httpService.axiosRef.post(`${ApplicationServiceURL.Comments}`, newComment);
+    return data;
+  }
+  @UseGuards(CheckAuthGuard)
   @UseInterceptors(UseridInterceptor)
   @Post('/')
   public async createPost(@Body() dto: AddNewPostDto) {
     const { data } = await this.httpService.axiosRef.post(`${ApplicationServiceURL.Blog}/`, dto);
-    return data;
-  }
-
-  @UseGuards(CheckAuthGuard)
-  @Post('/repost/:id')
-  public async repost(@Param('id') id: string,  @Req() {user: payload}: RequestWithTokenPayload) {
-    const { data } = await this.httpService.axiosRef.post(`${ApplicationServiceURL.Blog}/repost/${payload.sub}/${id}`);
     return data;
   }
 
@@ -74,6 +93,15 @@ export class BlogController {
   }
 
   @UseGuards(CheckAuthGuard)
+  @Delete('comment/:id')
+  public async deleteComment (@Param('id') id: number,@Req() {user: payload}: RequestWithTokenPayload ){
+    const {data} = await this.httpService.axiosRef.get(`${ApplicationServiceURL.Comments}/${id}`)
+    if (data.userId === payload.sub){
+    await this.httpService.axiosRef.delete(`${ApplicationServiceURL.Comments}/${id}`)
+  } else { throw new HttpException('Forbidden', HttpStatus.FORBIDDEN)}
+}
+
+  @UseGuards(CheckAuthGuard)
   @Delete('/:id')
   @HttpCode(HttpStatus.NO_CONTENT)
   public async deletePost(@Param('id') id:string, @Req() {user: payload}: RequestWithTokenPayload){
@@ -85,17 +113,6 @@ export class BlogController {
     }
   }
 
-  @UseGuards(CheckAuthGuard)
-  @Post('comment')
-  public async createComment(@Req() {user: payload}: RequestWithTokenPayload, @Body() dto: AddNewCommentDto){
-    const newComment = {
-      message: dto.message,
-      userId: payload.sub,
-      postId: dto.postId
-    }
-    const { data } = await this.httpService.axiosRef.post(`${ApplicationServiceURL.Comments}`, newComment);
-    return data;
-  }
 
   @Get('comment/:postId')
   public async getComments (@Param('postId') postId, @Query() query: CommentQuery){
@@ -103,18 +120,4 @@ export class BlogController {
     return data;
   }
 
-  // @Get('comment/:id')
-  // public async getComment (@Param('id') id: number){
-  //   const {data} = await this.httpService.axiosRef.get(`${ApplicationServiceURL.Comments}/${id}`)
-  //   return data;
-  // }
-
-  @UseGuards(CheckAuthGuard)
-  @Delete('comment/:id')
-  public async deleteComment (@Param('id') id: number,@Req() {user: payload}: RequestWithTokenPayload ){
-    const {data} = await this.httpService.axiosRef.get(`${ApplicationServiceURL.Comments}/${id}`)
-    if (data.userId === payload.sub){
-    await this.httpService.axiosRef.delete(`${ApplicationServiceURL.Comments}/${id}`)
-  } else { throw new HttpException('Forbidden', HttpStatus.FORBIDDEN)}
-}
 }
