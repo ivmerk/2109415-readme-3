@@ -38,8 +38,6 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDUyMDkzM
 # Unsubsribe from user
 POST http://localhost:4000/api/users/unsubcribe/6448cbf2f69083362a2ab69d HTTP/1.1
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDUyMDkzMDExYmI2MzU2NTk5OTdhYzIiLCJlbWFpbCI6InVzZXJAbmZmb29vby5sb2NhbCIsInJvbGUiOiJ1c2VyIiwibGFzdG5hbWUiOiJTbWl0aCIsImZpcnN0bmFtZSI6Iktla3MiLCJpYXQiOjE2ODMzNzA4NjAsImV4cCI6MTY4MzM3MTQ2MH0.dwdn2BFdS6bbJ5dF0SuJ3Cd_WAA9uLXtEwOkKuBqzrY
-
-
 ####
 # Create a new post
 POST http://localhost:4000/api/blog HTTP/1.1
@@ -74,10 +72,15 @@ Content-Type: application/json
     "title": "UPDATED!!its some leettesrand little more name1",
     "linkVideo": "https://www.youtube.com/watch?v=NYGL4hxPuxs"}
 }
-
 ###
+
+# Repost the post
+POST http://localhost:4000/api/blog/repost/34 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDUyMDkzMDExYmI2MzU2NTk5OTdhYzIiLCJlbWFpbCI6InVzZXJAbmZmb29vby5sb2NhbCIsInJvbGUiOiJ1c2VyIiwibGFzdG5hbWUiOiJTbWl0aCIsImZpcnN0bmFtZSI6Iktla3MiLCJpYXQiOjE2ODM0NDkyNjQsImV4cCI6MTY4MzQ0OTg2NH0.ILXlEpoxGiaIvh8JG6wh1K52_tKoMDw5BjGEGLVgwcM
+###
+
 # Delete the post by id
-DELETE http://localhost:4000/api/blog/34 HTTP/1.1
+DELETE http://localhost:4000/api/blog/repost/34 HTTP/1.1
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDUyMDkzMDExYmI2MzU2NTk5OTdhYzIiLCJlbWFpbCI6InVzZXJAbmZmb29vby5sb2NhbCIsInJvbGUiOiJ1c2VyIiwibGFzdG5hbWUiOiJTbWl0aCIsImZpcnN0bmFtZSI6Iktla3MiLCJpYXQiOjE2ODMyOTgyOTcsImV4cCI6MTY4MzI5ODg5N30.8A6L6ElTiEz77Qm1N1LLuyVqn-cBEck2LXYWgv-8604
 ###
 
@@ -90,7 +93,6 @@ Content-Type: application/json
   "message": "BFFmore messagesmore messagesmore messagesmore messages",
   "postId": 34
 }
-
 ###
 
 # Delete the comment by id

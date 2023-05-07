@@ -28,6 +28,15 @@ export class BlogController {
     return data;
   }
 
+  @UseGuards(CheckAuthGuard)
+  @Post('/repost/:id')
+  public async repost(@Param('id') id: string,  @Req() {user: payload}: RequestWithTokenPayload) {
+
+    console.log('bff_controller')
+    const { data } = await this.httpService.axiosRef.post(`${ApplicationServiceURL.Blog}/repost/${payload.sub}/${id}`);
+    return data;
+  }
+
   @Get('/:id')
   public async indexPost( @Param('id') id: string) {
     const {data} = await this.httpService.axiosRef.get(`${ApplicationServiceURL.Blog}/${id}`);

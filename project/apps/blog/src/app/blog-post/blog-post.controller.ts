@@ -24,10 +24,16 @@ export class BlogPostController {
     return fillObject(PostRdo, posts);
   }
 
+  @Post('/repost/:userId/:postId')
+  async repost(@Param('userId') userId: string, @Param('postId', ParseIntPipe) postId: number){
+    console.log('blog-controller')
+    const repostedPost = await this.blogPostService.repostPost(postId, userId);
+    return fillObject(PostRdo, repostedPost)
+  }
+
   @Post('/')
   async create(@Body() dto: CreatePostDto) {
     const newPost = await this.blogPostService.createPost(dto);
-
     return fillObject(PostRdo, newPost);
   }
 

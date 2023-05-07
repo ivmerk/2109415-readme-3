@@ -42,6 +42,27 @@ export class BlogPostService {
     return this.blogPostRepository.update(id, postEntity)
   }
 
+  public async repostPost(originalPostId: number, newOnerId: string): Promise<PostEntity> {
+    const originalPost = await this.blogPostRepository.findById(originalPostId);
+    for(const key in originalPost){
+      if(!originalPost[key]){
+        delete originalPost[key]
+      } else {
+        delete originalPost[key].postId;
+        delete originalPost[key].id;
+        delete originalPost[key].post;
+      }
+    }
+    const postEntity = new BlogPostEntity({...originalPost,
+      comments:[],
+      favorite:[],
+      originalPostId: originalPostId,
+      userId: newOnerId,
+
+    });
+    return this.blogPostRepository.create(postEntity);
+
+  }
 
 
 }
