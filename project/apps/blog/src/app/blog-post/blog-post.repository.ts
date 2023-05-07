@@ -126,7 +126,69 @@ export class BlogPostRepository implements CRUDRepository<BlogPostEntity, number
       skip: page > 0 ? limit * (page - 1) : undefined,
     });
   }
+  public findByUserIds({limit, sortType, page}:PostQuery, ids: string[]): Promise<PostEntity[]> {
+    if (sortType === 'byComments') {
+      return this.prisma.postEntity.findMany({
+        where: {
+          userId: {
+            in: ids
+          },
+        },
+        take: limit,
+      include: {
+        comments: true,
+        tags: true,
+        favorite: true,
+      },
+      orderBy: {
+        comments:{
+          _count: 'desc'
+        }
 
+      },
+      skip: page > 0 ? limit * (page - 1) : undefined,
+    });
+    }
+    if (sortType === 'byRating') {
+      return this.prisma.postEntity.findMany({
+        where: {
+          userId: {
+            in: ids
+          },
+        },
+        take: limit,
+      include: {
+        comments: true,
+        favorite: true,
+        tags: true,
+      },
+      orderBy: {
+        favorite:{
+          _count: 'desc'
+        }
+
+      },
+      skip: page > 0 ? limit * (page - 1) : undefined,
+    });
+    }
+    return this.prisma.postEntity.findMany({
+      where: {
+        userId: {
+          in: ids
+        },
+      },
+      take: limit,
+      include: {
+        comments: true,
+        tags: true,
+        favorite: true,
+      },
+      orderBy: [{
+        publishAt: 'asc'
+      }],
+      skip: page > 0 ? limit * (page - 1) : undefined,
+    });
+  }
   public update(id: number, item: BlogPostEntity): Promise<PostEntity> {
     const entityData = item.toObject();
     return this.prisma.postEntity.update({

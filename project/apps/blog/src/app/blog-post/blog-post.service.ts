@@ -33,6 +33,10 @@ export class BlogPostService {
     return this.blogPostRepository.find(query);
   }
 
+  public async getMyFeedPosts(query: PostQuery, ids: string[]): Promise<PostEntity[]> {
+    return this.blogPostRepository.findByUserIds(query, ids);
+  }
+
   public async updatePost(id: number, dto: UpdatePostDto): Promise<PostEntity> {
     const tagsSet = new Set(dto.tags)
     const tags = await this.blogTagRepository.findByIds(Array.from(tagsSet))

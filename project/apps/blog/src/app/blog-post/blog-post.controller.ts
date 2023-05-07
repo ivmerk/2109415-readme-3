@@ -5,6 +5,7 @@ import { PostRdo } from './rdo/post.rdo';
 import { CreatePostDto } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
 import { PostQuery } from './query/post.query';
+import { IdsDto } from './dto/ids.dto';
 
 @Controller('posts')
 export class BlogPostController {
@@ -24,9 +25,15 @@ export class BlogPostController {
     return fillObject(PostRdo, posts);
   }
 
+  @Post('/feed')
+  async showFeed(@Query() query:PostQuery, @Body() ids: IdsDto) {
+    console.log('blogcontroller')
+    const posts = this.blogPostService.getMyFeedPosts(query, ids.ids);
+    return fillObject(PostRdo, posts);
+  }
+
   @Post('/repost/:userId/:postId')
   async repost(@Param('userId') userId: string, @Param('postId', ParseIntPipe) postId: number){
-    console.log('blog-controller')
     const repostedPost = await this.blogPostService.repostPost(postId, userId);
     return fillObject(PostRdo, repostedPost)
   }

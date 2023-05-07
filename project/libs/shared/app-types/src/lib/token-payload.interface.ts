@@ -6,4 +6,5 @@ export interface TokenPayload {
   role: UserRole;
   lastname: string;
   firstname: string;
+  subscribe: string[];
 }

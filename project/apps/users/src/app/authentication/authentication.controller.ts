@@ -53,7 +53,6 @@ export class AuthenticationController {
     status: HttpStatus.OK,
     description: 'User found'
   })
-  @UseGuards(JwtAuthGuard)
   @Get(':id')
   public async show(@Param('id', MongoidValidationPipe) id: string) {
     const existUser = await this.authService.getUser(id);

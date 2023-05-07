@@ -31,8 +31,8 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDUyMDkzM
 ###
 
 # Subsribe to user
-POST http://localhost:4000/api/users/subcribe/6448cbf2f69083362a2ab69d HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDUyMDkzMDExYmI2MzU2NTk5OTdhYzIiLCJlbWFpbCI6InVzZXJAbmZmb29vby5sb2NhbCIsInJvbGUiOiJ1c2VyIiwibGFzdG5hbWUiOiJTbWl0aCIsImZpcnN0bmFtZSI6Iktla3MiLCJpYXQiOjE2ODMzNjEzMzksImV4cCI6MTY4MzM2MTkzOX0.eYxB2IIDwMbgnLfUWt_9g2eTy0XMuY7U3zxpeiD_DjM
+POST http://localhost:4000/api/users/subcribe/6448da56b391d4e47be9ef28 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDUyMDkzMDExYmI2MzU2NTk5OTdhYzIiLCJlbWFpbCI6InVzZXJAbmZmb29vby5sb2NhbCIsInJvbGUiOiJ1c2VyIiwibGFzdG5hbWUiOiJTbWl0aCIsImZpcnN0bmFtZSI6Iktla3MiLCJpYXQiOjE2ODM0NTQzMjQsImV4cCI6MTY4MzQ1NDkyNH0.d7jdpua53_pAX1UBRlVVs4z4mCpyIg8a3Ym_05s45_U
 ####
 
 # Unsubsribe from user
@@ -41,7 +41,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDUyMDkzM
 ####
 # Create a new post
 POST http://localhost:4000/api/blog HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDUyMDkzMDExYmI2MzU2NTk5OTdhYzIiLCJlbWFpbCI6InVzZXJAbmZmb29vby5sb2NhbCIsInJvbGUiOiJ1c2VyIiwibGFzdG5hbWUiOiJTbWl0aCIsImZpcnN0bmFtZSI6Iktla3MiLCJpYXQiOjE2ODMyOTEzMzEsImV4cCI6MTY4MzI5MTkzMX0.QQfbv3JtsDSCkKqSoW1PsmpMx90VT6cldPcoyIj0TTI
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDUyMDkzMDExYmI2MzU2NTk5OTdhYzIiLCJlbWFpbCI6InVzZXJAbmZmb29vby5sb2NhbCIsInJvbGUiOiJ1c2VyIiwibGFzdG5hbWUiOiJTbWl0aCIsImZpcnN0bmFtZSI6Iktla3MiLCJpYXQiOjE2ODM0NTYzMTAsImV4cCI6MTY4MzQ1NjkxMH0.51SCt57erEJ9Snp_6klC0TYPXkFe5V5t0gl7ZIAnuX0
 Content-Type: application/json
 
 {
@@ -50,7 +50,6 @@ Content-Type: application/json
     "title": "its some leettesrand little more name1",
     "linkVideo": "https://www.youtube.com/watch?v=NYGL4hxPuxs"
   },
-  "userId": "13",
   "tags": [1,1]
 }
 ###
@@ -60,7 +59,10 @@ GET http://localhost:4000/api/blog/34 HTTP/1.1
 ###
 # Get all posts
 GET http://localhost:4000/api/blog?sortType=byComments HTTP/1.1
-
+###
+# Get user posts feed
+GET http://localhost:4000/api/blog/feed?sortType=byComments HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDUyMDkzMDExYmI2MzU2NTk5OTdhYzIiLCJlbWFpbCI6InVzZXJAbmZmb29vby5sb2NhbCIsInJvbGUiOiJ1c2VyIiwibGFzdG5hbWUiOiJTbWl0aCIsImZpcnN0bmFtZSI6Iktla3MiLCJpYXQiOjE2ODM0NTYzMTAsImV4cCI6MTY4MzQ1NjkxMH0.51SCt57erEJ9Snp_6klC0TYPXkFe5V5t0gl7ZIAnuX0
 ###
 # Update posr by id
 PATCH http://localhost:4000/api/blog/35 HTTP/1.1

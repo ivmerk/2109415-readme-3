@@ -11,6 +11,7 @@ import { AddNewCommentDto } from './dto/add-new-comment.dto';
 import { CommentQuery } from './query/comment.query';
 import { DEFAULT_COMMENT_COUNT_LIMIT } from './bff.constant';
 import { PostQuery } from './query/post.query';
+import { UserIdsDto } from './dto/user-ids.dto';
 
 @Controller('blog')
 @UseFilters(AxiosExceptionFilter)
@@ -31,9 +32,19 @@ export class BlogController {
   @UseGuards(CheckAuthGuard)
   @Post('/repost/:id')
   public async repost(@Param('id') id: string,  @Req() {user: payload}: RequestWithTokenPayload) {
-
-    console.log('bff_controller')
     const { data } = await this.httpService.axiosRef.post(`${ApplicationServiceURL.Blog}/repost/${payload.sub}/${id}`);
+    return data;
+  }
+
+  @UseGuards(CheckAuthGuard)
+  @Get('/feed')
+  public async feedLine(@Req() {user: payload}: RequestWithTokenPayload, @Query() query: PostQuery){
+    const userIdResponse = await this.httpService.axiosRef.get(`${ApplicationServiceURL.Users}/${payload.sub}`);
+    console.log(userIdResponse.data.subscribe)
+    const userIdsDto = new UserIdsDto();
+    userIdsDto.ids = [...userIdResponse.data.subscribe, payload.sub];
+    const {data} = await this.httpService.axiosRef.post(`${ApplicationServiceURL.Blog}/feed?limit=${query.limit!=0? query.limit:DEFAULT_COMMENT_COUNT_LIMIT}&page=${query.page?query.page:1}${query.sortType ? '&'+ query.sortType : ''}`, userIdsDto);
+    console.log(data);
     return data;
   }
 
@@ -45,7 +56,6 @@ export class BlogController {
 
   @Get('/')
   public async showPosts(@Query() query: PostQuery){
-    console.log(query)
     const {data} = await this.httpService.axiosRef.get(`${ApplicationServiceURL.Blog}?limit=${query.limit!=0? query.limit:DEFAULT_COMMENT_COUNT_LIMIT}&page=${query.page?query.page:1}${query.sortType ? '&'+ query.sortType : ''}`)
     return data;
   }
@@ -55,9 +65,7 @@ export class BlogController {
   @Patch('/:id')
   public async updatePost(@Param('id') id: string, @Body() dto: UpdateOldPostDto){
     const {data} = await this.httpService.axiosRef.get(`${ApplicationServiceURL.Blog}/${id}`);
-
     if (dto.userId === data.userId){
-
       const{data} = await this.httpService.axiosRef.patch(`${ApplicationServiceURL.Blog}/${id}`, dto);
       return data;
     } else {
@@ -86,7 +94,6 @@ export class BlogController {
       postId: dto.postId
     }
     const { data } = await this.httpService.axiosRef.post(`${ApplicationServiceURL.Comments}`, newComment);
-
     return data;
   }
 
