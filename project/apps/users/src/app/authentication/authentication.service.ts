@@ -22,7 +22,7 @@ export class AuthenticationService {
     @Inject (jwtConfig.KEY) private readonly jwtOptions: ConfigType<typeof jwtConfig>,
     private readonly refreshTokenService: RefreshTokenService,
   ) {}
-  public async register(dto: CreateUserDto) {
+  public async register(dto: CreateUserDto):Promise<User> {
     const {email, firstname, lastname, password, dateBirth} = dto;
 
     const blogUser = {
@@ -46,6 +46,18 @@ export class AuthenticationService {
       .create(userEntity);
   }
 
+  public async changePassword(id: string, oldPassword: string, newPassword: string):Promise<User>{
+    const user = await this.blogUserRepository.findById(id);
+    const newPasswordUserEntity = await new BlogUserEntity(user);
+    console.log(user)
+    if (!await newPasswordUserEntity.comparePassword(oldPassword)) {
+      throw new UnauthorizedException(AUTH_USER_PASSWORD_WRONG);
+    }
+    await newPasswordUserEntity.setPassword(newPassword);
+
+    return this.blogUserRepository.update(id, newPasswordUserEntity);
+  }
+
   public async verifyUser(dto: LoginUserDto) {
     const {email, password} = dto;
     const existUser = await this.blogUserRepository.findByEmail(email);
@@ -62,7 +74,7 @@ export class AuthenticationService {
     return blogUserEntity.toObject();
   }
 
-  public async getUser(id: string) {
+  public async getUser(id: string):Promise<User> {
     return this.blogUserRepository.findById(id);
   }
   public async createUserToken(user: User) {

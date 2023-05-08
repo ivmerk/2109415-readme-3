@@ -11,6 +11,7 @@ import { NotifyService } from '../notify/notify.service';
 import { RequestWithTokenPayload, RequestWithUser } from '@project/shared/app-types';
 import { JwtRefreshGuard } from './guards/jwt-refresh.guard';
 import { LocalAuthGuard } from './guards/local-auth-guard';
+import { changePassDto } from './dto/change-pass.dto';
 
 @ApiTags('authentication')
 @Controller('auth')
@@ -30,6 +31,13 @@ export class AuthenticationController {
     const { email, firstname, lastname } = newUser;
     await this.notifyService.registerSubscriber({ email, firstname, lastname })
     return fillObject(UserRdo, newUser);
+  }
+
+  @Post('changepassword')
+  public async newPass(@Body() dto: changePassDto){
+    const{id, oldPassword, newPassword} = dto;
+    console.log(dto)
+    return this.authService.changePassword(id, oldPassword, newPassword);
   }
 
   @UseGuards(LocalAuthGuard)
