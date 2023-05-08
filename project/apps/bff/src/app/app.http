@@ -83,6 +83,9 @@ Content-Type: application/json
   "tags": ["videoTag"]
 }
 ###
+# Find by text
+POST http://localhost:4000/api/blog/findbytext?searchingText=some HTTP/1.1
+###
 # Repost the post
 POST http://localhost:4000/api/blog/repost/34 HTTP/1.1
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDUyMDkzMDExYmI2MzU2NTk5OTdhYzIiLCJlbWFpbCI6InVzZXJAbmZmb29vby5sb2NhbCIsInJvbGUiOiJ1c2VyIiwibGFzdG5hbWUiOiJTbWl0aCIsImZpcnN0bmFtZSI6Iktla3MiLCJpYXQiOjE2ODM0NDkyNjQsImV4cCI6MTY4MzQ0OTg2NH0.ILXlEpoxGiaIvh8JG6wh1K52_tKoMDw5BjGEGLVgwcM

@@ -80,11 +80,11 @@ model PicturePost {
 }
 
 model LinkPost {
-  id     Int        @id @default(autoincrement()) @map("link_post_id")
-  link   String     @default("")
-  iption String?    @default("")
-  post   PostEntity @relation(fields: [postId], references: [postId], onDelete: Cascade, onUpdate: Cascade)
-  postId Int        @unique @map("post_id")
+  id      Int        @id @default(autoincrement()) @map("link_post_id")
+  link    String     @default("")
+  options String?    @default("")
+  post    PostEntity @relation(fields: [postId], references: [postId], onDelete: Cascade, onUpdate: Cascade)
+  postId  Int        @unique @map("post_id")
 
   @@map("link_posts")
 }

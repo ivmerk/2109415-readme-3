@@ -7,6 +7,7 @@ import { UpdatePostDto } from './dto/update-post.dto';
 import { PostQuery } from './query/post.query';
 import { IdsDto } from './dto/ids.dto';
 import { FindByTagsDto } from './dto/find-by-tags.dto';
+import { SearchTextQuery } from './query/search-text.query';
 
 @Controller('posts')
 export class BlogPostController {
@@ -35,6 +36,13 @@ export class BlogPostController {
   @Post('/findbytags')
   async showByTags(@Body() tags: FindByTagsDto){
     const posts = this.blogPostService.getPostsByTags(tags.tags);
+    return fillObject(PostRdo, posts);
+  }
+
+  @Post('/findbytext')
+  async showByText(@Query() text:SearchTextQuery){
+    console.log('blogcontroller')
+    const posts = this.blogPostService.getPostByName(text.searchingText);
     return fillObject(PostRdo, posts);
   }
 

@@ -71,5 +71,7 @@ export class BlogPostService {
     return this.blogPostRepository.findByTagText(tagsText)
   }
 
-
+  public async getPostByName(searchingText: string): Promise<PostEntity[]> {
+    return this.blogPostRepository.findByName(searchingText);
+  }
 }

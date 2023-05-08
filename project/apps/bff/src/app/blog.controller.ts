@@ -13,6 +13,7 @@ import { DEFAULT_COMMENT_COUNT_LIMIT } from './bff.constant';
 import { PostQuery } from './query/post.query';
 import { UserIdsDto } from './dto/user-ids.dto';
 import { FindByTagsDto } from './dto/fing-by-tags.dto';
+import { SearchingTextQuery } from './query/searching-text.query';
 
 @Controller('blog')
 @UseFilters(AxiosExceptionFilter)
@@ -35,6 +36,15 @@ export class BlogController {
     return data;
   }
 
+  @Post('/findbytext')
+  public async showByText(@Query() text:SearchingTextQuery){
+    console.log(text)
+    if(text.searchingText !== ''){
+    const{data} = await this.httpService.axiosRef.post(`${ApplicationServiceURL.Blog}/findbytext?searchingText=${text.searchingText}`);
+    return data;} else {
+      throw new HttpException('Bad_Request', HttpStatus.BAD_REQUEST);
+    }
+  }
 
   @UseGuards(CheckAuthGuard)
   @Post('/comment')
@@ -47,6 +57,7 @@ export class BlogController {
     const { data } = await this.httpService.axiosRef.post(`${ApplicationServiceURL.Comments}`, newComment);
     return data;
   }
+
   @UseGuards(CheckAuthGuard)
   @UseInterceptors(UseridInterceptor)
   @Post('/')

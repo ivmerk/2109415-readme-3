@@ -4,7 +4,8 @@ import { BlogPostEntity } from './blog-post.entity';
 import { PostEntity, Tag } from '@project/shared/app-types';
 import { PrismaService } from '../prisma/prisma.service';
 import { PostQuery } from './query/post.query';
-import { DEFAULT_FILLTERED_BY_TAGS_POST_COUNT_LIMIT } from './blog-post.constant';
+import { DEFAULT_FILLTERED_BY_NAME_POST_COUNT_LIMIT, DEFAULT_FILLTERED_BY_TAGS_POST_COUNT_LIMIT } from './blog-post.constant';
+import { PostType } from '@prisma/client';
 
 @Injectable()
 export class BlogPostRepository implements CRUDRepository<BlogPostEntity, number, PostEntity> {
@@ -240,6 +241,36 @@ export class BlogPostRepository implements CRUDRepository<BlogPostEntity, number
       },
     })
   }
+
+  public findByName(searchingText: string): Promise<PostEntity[]>{
+    return this.prisma.postEntity.findMany({
+      where:{
+        OR:[{videoPost:{
+              title:{
+                contains:searchingText
+              },
+            },
+          },
+          {textPost:{
+            name:{
+              contains:searchingText
+              },
+            },
+          },
+        ],
+      },
+      take: DEFAULT_FILLTERED_BY_NAME_POST_COUNT_LIMIT,
+      include: {
+        videoPost: true,
+        textPost: true,
+        quotePost: true,
+        picturePost: true,
+        linkPost: true,
+        comments: true,
+        favorite: true,
+        tags: true,
+      },
+  });}
 
   public update(id: number, item: BlogPostEntity): Promise<PostEntity> {
     const entityData = item.toObject();
