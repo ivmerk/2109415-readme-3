@@ -43,6 +43,9 @@ export class BlogUserModel extends Document implements User {
     default: UserRole.User,
   })
   public role: UserRole;
+
+  @Prop()
+  public subscribe: string[];
 }
 
 export const BlogUserSchema = SchemaFactory.createForClass(BlogUserModel);

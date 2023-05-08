@@ -1,9 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { CRUDRepository } from '@project/util/util-types';
 import { BlogPostEntity } from './blog-post.entity';
-import { PostEntity } from '@project/shared/app-types';
+import { PostEntity, Tag } from '@project/shared/app-types';
 import { PrismaService } from '../prisma/prisma.service';
 import { PostQuery } from './query/post.query';
+import { DEFAULT_FILLTERED_BY_NAME_POST_COUNT_LIMIT, DEFAULT_FILLTERED_BY_TAGS_POST_COUNT_LIMIT } from './blog-post.constant';
+import { PostType } from '@prisma/client';
 
 @Injectable()
 export class BlogPostRepository implements CRUDRepository<BlogPostEntity, number, PostEntity> {
@@ -83,9 +85,14 @@ export class BlogPostRepository implements CRUDRepository<BlogPostEntity, number
       return this.prisma.postEntity.findMany({
         take: limit,
       include: {
+        videoPost: true,
+        textPost: true,
+        quotePost: true,
+        picturePost: true,
+        linkPost: true,
         comments: true,
-        tags: true,
         favorite: true,
+        tags: true,
       },
       orderBy: {
         comments:{
@@ -100,6 +107,11 @@ export class BlogPostRepository implements CRUDRepository<BlogPostEntity, number
       return this.prisma.postEntity.findMany({
         take: limit,
       include: {
+        videoPost: true,
+        textPost: true,
+        quotePost: true,
+        picturePost: true,
+        linkPost: true,
         comments: true,
         favorite: true,
         tags: true,
@@ -126,6 +138,139 @@ export class BlogPostRepository implements CRUDRepository<BlogPostEntity, number
       skip: page > 0 ? limit * (page - 1) : undefined,
     });
   }
+  public findByUserIds({limit, sortType, page}:PostQuery, ids: string[]): Promise<PostEntity[]> {
+    if (sortType === 'byComments') {
+      return this.prisma.postEntity.findMany({
+        where: {
+          userId: {
+            in: ids
+          },
+        },
+        take: limit,
+      include: {
+        videoPost: true,
+        textPost: true,
+        quotePost: true,
+        picturePost: true,
+        linkPost: true,
+        comments: true,
+        favorite: true,
+        tags: true,
+      },
+      orderBy: {
+        comments:{
+          _count: 'desc'
+        }
+
+      },
+      skip: page > 0 ? limit * (page - 1) : undefined,
+    });
+    }
+    if (sortType === 'byRating') {
+      return this.prisma.postEntity.findMany({
+        where: {
+          userId: {
+            in: ids
+          },
+        },
+        take: limit,
+      include: {
+        videoPost: true,
+        textPost: true,
+        quotePost: true,
+        picturePost: true,
+        linkPost: true,
+        comments: true,
+        favorite: true,
+        tags: true,
+      },
+      orderBy: {
+        favorite:{
+          _count: 'desc'
+        }
+
+      },
+      skip: page > 0 ? limit * (page - 1) : undefined,
+    });
+    }
+    return this.prisma.postEntity.findMany({
+      where: {
+        userId: {
+          in: ids
+        },
+      },
+      take: limit,
+      include: {
+        videoPost: true,
+        textPost: true,
+        quotePost: true,
+        picturePost: true,
+        linkPost: true,
+        comments: true,
+        favorite: true,
+        tags: true,
+      },
+      orderBy: [{
+        publishAt: 'asc'
+      }],
+      skip: page > 0 ? limit * (page - 1) : undefined,
+    });
+  }
+
+  public findByTagText(tagsText: string[]): Promise<PostEntity[]>{
+    return this.prisma.postEntity.findMany({
+      where: {
+        tags: {
+          some: {
+            text:{
+              in: tagsText
+            }
+          }
+        }
+      },
+      take: DEFAULT_FILLTERED_BY_TAGS_POST_COUNT_LIMIT,
+      include: {
+        videoPost: true,
+        textPost: true,
+        quotePost: true,
+        picturePost: true,
+        linkPost: true,
+        comments: true,
+        favorite: true,
+        tags: true,
+      },
+    })
+  }
+
+  public findByName(searchingText: string): Promise<PostEntity[]>{
+    return this.prisma.postEntity.findMany({
+      where:{
+        OR:[{videoPost:{
+              title:{
+                contains:searchingText
+              },
+            },
+          },
+          {textPost:{
+            name:{
+              contains:searchingText
+              },
+            },
+          },
+        ],
+      },
+      take: DEFAULT_FILLTERED_BY_NAME_POST_COUNT_LIMIT,
+      include: {
+        videoPost: true,
+        textPost: true,
+        quotePost: true,
+        picturePost: true,
+        linkPost: true,
+        comments: true,
+        favorite: true,
+        tags: true,
+      },
+  });}
 
   public update(id: number, item: BlogPostEntity): Promise<PostEntity> {
     const entityData = item.toObject();

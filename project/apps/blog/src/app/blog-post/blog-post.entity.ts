@@ -36,7 +36,7 @@ import { Entity } from '@project/util/util-types';
       this.favorite = [];
       this.createdAt = new Date();
       this.isDraft = entity.isDraft;
-      this,this.originalPostId = entity.originalPostId;
+      this.originalPostId = entity.originalPostId;
     }
 
     public toObject(): PostEntity {

@@ -16,7 +16,8 @@
         "tsConfig": "apps/blog/tsconfig.app.json",
         "assets": ["apps/blog/src/assets"],
         "isolatedConfig": true,
-        "webpackConfig": "apps/blog/webpack.config.js"
+        "webpackConfig": "apps/blog/webpack.config.js",
+        "generatePackageJson": true
       },
       "configurations": {
         "development": {},
@@ -59,6 +60,15 @@
         }
       }
     },
+    "buildImage":{
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "nx run blog:build",
+          "docker build --file ./apps/blog/Dockerfile  --tag readme.blog:latest ."
+        ]
+      }
+    },
     "db:lint": {
       "executor": "nx:run-commands",
       "options": {
@@ -83,7 +93,7 @@
     "db:generate": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "npx prisma generate --schema ./schema.prisma",
+        "command": "npx prisma generate --schema ./schema.prisma --verbose",
         "cwd": "libs/models/models-blog/src/prisma"
       }
     },

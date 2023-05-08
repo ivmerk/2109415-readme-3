@@ -11,6 +11,7 @@ export class BlogUserEntity implements User {
   public lastname: string;
   public passwordHash: string;
   public role: UserRole;
+  public subscribe: string[];
 
   constructor(blogUser: User) {
     this.fillEntity(blogUser);
@@ -29,6 +30,7 @@ export class BlogUserEntity implements User {
     this.lastname = blogUser.lastname;
     this.passwordHash = blogUser.passwordHash;
     this.role = blogUser.role;
+    this.subscribe = [...blogUser.subscribe];
   }
 
   public async setPassword(password: string): Promise<BlogUserEntity> {

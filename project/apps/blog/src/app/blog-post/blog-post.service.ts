@@ -33,6 +33,10 @@ export class BlogPostService {
     return this.blogPostRepository.find(query);
   }
 
+  public async getMyFeedPosts(query: PostQuery, ids: string[]): Promise<PostEntity[]> {
+    return this.blogPostRepository.findByUserIds(query, ids);
+  }
+
   public async updatePost(id: number, dto: UpdatePostDto): Promise<PostEntity> {
     const tagsSet = new Set(dto.tags)
     const tags = await this.blogTagRepository.findByIds(Array.from(tagsSet))
@@ -42,4 +46,32 @@ export class BlogPostService {
     return this.blogPostRepository.update(id, postEntity)
   }
 
+  public async repostPost(originalPostId: number, newOnerId: string): Promise<PostEntity> {
+    const originalPost = await this.blogPostRepository.findById(originalPostId);
+    for(const key in originalPost){
+      if(!originalPost[key]){
+        delete originalPost[key]
+      } else {
+        delete originalPost[key].postId;
+        delete originalPost[key].id;
+        delete originalPost[key].post;
+      }
+    }
+    const postEntity = new BlogPostEntity({...originalPost,
+      comments:[],
+      favorite:[],
+      originalPostId: originalPostId,
+      userId: newOnerId,
+    });
+    return this.blogPostRepository.create(postEntity);
+
+  }
+
+  public async getPostsByTags(tagsText: string[]): Promise<PostEntity[]> {
+    return this.blogPostRepository.findByTagText(tagsText)
+  }
+
+  public async getPostByName(searchingText: string): Promise<PostEntity[]> {
+    return this.blogPostRepository.findByName(searchingText);
+  }
 }

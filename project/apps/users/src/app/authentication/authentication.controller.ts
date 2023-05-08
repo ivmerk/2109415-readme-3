@@ -53,7 +53,6 @@ export class AuthenticationController {
     status: HttpStatus.OK,
     description: 'User found'
   })
-  @UseGuards(JwtAuthGuard)
   @Get(':id')
   public async show(@Param('id', MongoidValidationPipe) id: string) {
     const existUser = await this.authService.getUser(id);
@@ -78,5 +77,16 @@ export class AuthenticationController {
     return payload;
   }
 
+  @UseGuards(JwtAuthGuard)
+  @Post('subcribe/:id')
+  public async subcribe(@Req() { user: payload }: RequestWithTokenPayload, @Param('id', MongoidValidationPipe) id: string) {
+    return this.authService.subscribe (payload.sub, id);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Post('unsubcribe/:id')
+  public async unsubcribe(@Req() { user: payload }: RequestWithTokenPayload, @Param('id', MongoidValidationPipe) id: string) {
+    return this.authService.unSubscribe (payload.sub, id);
+  }
 }
 

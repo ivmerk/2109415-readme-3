@@ -1,5 +1,5 @@
 import { HttpService } from '@nestjs/axios';
-import { Body, Controller, Post, Req, UseFilters, UseGuards } from '@nestjs/common';
+import { Body, Controller, Param, Post, Req, UseFilters, UseGuards } from '@nestjs/common';
 import { LoginUserDto } from './dto/login-user.dto';
 import { ApplicationServiceURL } from './app.config';
 import { AxiosExceptionFilter } from './filters/axios-exception.filter';
@@ -40,5 +40,26 @@ export class UsersController {
   @Post('check')
   public async check(@Req() {user: payload}: RequestWithTokenPayload){
     return payload
+  }
+
+  @UseGuards(CheckAuthGuard)
+  @Post('subcribe/:id')
+  public async subcribe(@Param('id') id: string, @Req() req: Request) {
+    const { data } = await this.httpService.axiosRef.post(`${ApplicationServiceURL.Users}/subcribe/${id}`, null,{
+      headers: {
+        'Authorization': req.headers['authorization']
+      }
+    });
+    return data;
+  }
+  @UseGuards(CheckAuthGuard)
+  @Post('unsubcribe/:id')
+  public async ubSubcribe(@Param('id') id: string, @Req() req: Request) {
+    const { data } = await this.httpService.axiosRef.post(`${ApplicationServiceURL.Users}/unsubcribe/${id}`, null,{
+      headers: {
+        'Authorization': req.headers['authorization']
+      }
+    });
+    return data;
   }
 }

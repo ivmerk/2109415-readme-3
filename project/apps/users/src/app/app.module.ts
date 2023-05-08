@@ -6,7 +6,6 @@ import { ConfigUsersModule, getMongooseOptions } from '@project/config/config-us
 import { MongooseModule } from '@nestjs/mongoose';
 import { NotifyModule } from './notify/notify.module';
 
-
 @Module({
   imports: [
     AuthenticationModule,
@@ -20,4 +19,5 @@ import { NotifyModule } from './notify/notify.module';
   controllers: [],
   providers: [],
 })
+
 export class AppModule {}

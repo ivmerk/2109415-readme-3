@@ -38,4 +38,5 @@ export class BlogUserRepository implements CRUDRepository<BlogUserEntity, string
       .findByIdAndUpdate(id, item.toObject(), {new: true})
       .exec();
   }
+
 }
