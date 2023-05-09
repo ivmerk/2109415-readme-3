@@ -46,5 +46,12 @@ export class UserRdo {
   public lastname: string;
 
   @Expose()
-  public subscribe: string[]
+  public subscribe: string[];
+
+
+  @Expose()
+  public mySubscribers: string[];
+
+  @Expose()
+  public myPostsQtt: number;
 }

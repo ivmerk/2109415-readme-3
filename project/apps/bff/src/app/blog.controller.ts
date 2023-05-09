@@ -62,6 +62,7 @@ export class BlogController {
   @Post('/')
   public async createPost(@Body() dto: AddNewPostDto) {
     const { data } = await this.httpService.axiosRef.post(`${ApplicationServiceURL.Blog}/`, dto);
+    await this.httpService.axiosRef.post(`${ApplicationServiceURL.Users}/addpost/${dto.userId}`);
     return data;
   }
 
@@ -115,6 +116,7 @@ export class BlogController {
   public async deletePost(@Param('id') id:string, @Req() {user: payload}: RequestWithTokenPayload){
     const {data} = await this.httpService.axiosRef.get(`${ApplicationServiceURL.Blog}/${id}`);
     if (payload.sub === data.userId){
+      await this.httpService.axiosRef.post(`${ApplicationServiceURL.Users}/delpost/${data.userId}`);
       await this.httpService.axiosRef.delete(`${ApplicationServiceURL.Blog}/${id}`);
     } else {
       throw new HttpException('Forbidden', HttpStatus.FORBIDDEN);

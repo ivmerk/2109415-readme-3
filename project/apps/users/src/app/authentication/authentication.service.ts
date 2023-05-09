@@ -29,7 +29,7 @@ export class AuthenticationService {
       email, firstname, lastname, role: UserRole.User,
       avatar: '', dateBirth: dayjs(dateBirth).toDate(),
       passwordHash: '',
-      subscribe: null, mySubscribers: null, myPostsQtt: 0
+      subscribe: [], mySubscribers: [], myPostsQtt: 0
     };
 
     const existUser = await this.blogUserRepository
@@ -76,6 +76,7 @@ export class AuthenticationService {
   public async getUser(id: string):Promise<User> {
     return this.blogUserRepository.findById(id);
   }
+
   public async createUserToken(user: User) {
     const accessTokenPayload = createJWTPayload(user);
     const refreshTokenPayload = { ...accessTokenPayload, tokenId: crypto.randomUUID() };
@@ -90,6 +91,24 @@ export class AuthenticationService {
     }
   }
 
+  public async increasePostsQtt (id: string): Promise<User>{
+    const existUser = await  this.blogUserRepository.findById(id);
+    if (!existUser ) {
+      throw new NotFoundException(AUTH_USER_NOT_FOUND);
+    }
+    existUser.myPostsQtt++;
+    return await this.blogUserRepository.update(id,await new BlogUserEntity(existUser));
+}
+
+  public async decreasePostsQtt (id: string): Promise<User>{
+    const existUser = await  this.blogUserRepository.findById(id);
+    if (!existUser ) {
+      throw new NotFoundException(AUTH_USER_NOT_FOUND);
+    }
+    existUser.myPostsQtt--;
+    return await this.blogUserRepository.update(id,await new BlogUserEntity(existUser));
+}
+
   public async subscribe(idReader: string, idWriter: string): Promise<User>{
 
     const subscribingUser = await  this.blogUserRepository.findById(idReader);
@@ -98,7 +117,7 @@ export class AuthenticationService {
     }
     if (!subscribingUser.subscribe.includes(idWriter)){
       subscribingUser.subscribe.push(idWriter);
-      await this.blogUserRepository.update(idReader, new BlogUserEntity(subscribingUser));
+      await this.blogUserRepository.update(idReader,await new BlogUserEntity(subscribingUser));
     }
     const subscribedUser = await  this.blogUserRepository.findById(idWriter);
     if (!subscribedUser ) {
@@ -106,7 +125,7 @@ export class AuthenticationService {
     }
     if (!subscribedUser.mySubscribers.includes(idReader)){
       subscribedUser.mySubscribers.push(idReader);
-      return  await this.blogUserRepository.update(idWriter, new BlogUserEntity(subscribedUser));
+      return  await this.blogUserRepository.update(idWriter,await new BlogUserEntity(subscribedUser));
     }
   }
 
@@ -117,7 +136,7 @@ export class AuthenticationService {
     }
     if (subscribingUser.subscribe.includes(idWriter)){
       subscribingUser.subscribe.splice(subscribingUser.subscribe.indexOf(idWriter),1);
-    await this.blogUserRepository.update(idReader, new BlogUserEntity(subscribingUser));
+    await this.blogUserRepository.update(idReader,await new BlogUserEntity(subscribingUser));
   }
   const subscribedUser = await  this.blogUserRepository.findById(idWriter);
   if (!subscribedUser ) {
@@ -125,7 +144,7 @@ export class AuthenticationService {
   }
   if (!subscribedUser.mySubscribers.includes(idReader)){
     subscribedUser.mySubscribers.splice(subscribedUser.mySubscribers.indexOf(idReader),1);
-    return  await this.blogUserRepository.update(idWriter, new BlogUserEntity(subscribedUser));
+    return  await this.blogUserRepository.update(idWriter,await new BlogUserEntity(subscribedUser));
   }
 }
 }

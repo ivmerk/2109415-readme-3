@@ -9,7 +9,7 @@ export interface User {
   avatar: string;
   passwordHash: string;
   role: UserRole;
-  subscribe: string[];
-  mySubscribers: string[];
+  subscribe?: string[];
+  mySubscribers?: string[];
   myPostsQtt: number;
 }

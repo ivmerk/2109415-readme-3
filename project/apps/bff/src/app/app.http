@@ -1,8 +1,9 @@
 # Create a new user
 POST http://localhost:4000/api/users/register HTTP/1.1
 Content-Type: application/json
+
 {
-  "email": "user34@nffoooo.local",
+  "email": "uer64@ffooo.loal",
   "dateBirth": "2012-02-12",
   "firstname": "Keks",
   "lastname": "Smith",
@@ -14,8 +15,8 @@ POST http://localhost:4000/api/users/login HTTP/1.1
 Content-Type: application/json
 
 {
-  "email": "user@nffoooo.local",
-  "password": "123555456"
+  "email": "user64@ffooo.loal",
+  "password": "123456"
 }
 ###
 # Get new JWT pair
@@ -38,8 +39,7 @@ Content-Type: application/json
 ###
 # Subsribe to user
 POST http://localhost:4000/api/users/subcribe/6448da56b391d4e47be9ef28 HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDUyMDkzMDExYmI2MzU2NTk5OTdhYzIiLCJlbWFpbCI6InVzZXJAbmZmb29vby5sb2NhbCIsInJvbGUiOiJ1c2VyIiwibGFzdG5hbWUiOiJTbWl0aCIsImZpcnN0bmFtZSI6Iktla3MiLCJpYXQiOjE2ODM0NTQzMjQsImV4cCI6MTY4MzQ1NDkyNH0.d7jdpua53_pAX1UBRlVVs4z4mCpyIg8a3Ym_05s45_U
-####
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDVhMDIxYWNlZDc1NDQ2YzNiYWMxZWQiLCJlbWFpbCI6InVzZXI2NEBmZm9vby5sb2FsIiwicm9sZSI6InVzZXIiLCJsYXN0bmFtZSI6IlNtaXRoIiwiZmlyc3RuYW1lIjoiS2VrcyIsImlhdCI6MTY4MzYyMDQzNywiZXhwIjoxNjgzNjIxMDM3fQ.nI0A08pKBrChaHMaEfzYKBz7DTAvODCd59lDWBpP9lw
 
 # Unsubsribe from user
 POST http://localhost:4000/api/users/unsubcribe/6448cbf2f69083362a2ab69d HTTP/1.1
@@ -47,7 +47,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDUyMDkzM
 ####
 # Create a new post
 POST http://localhost:4000/api/blog HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDUyMDkzMDExYmI2MzU2NTk5OTdhYzIiLCJlbWFpbCI6InVzZXJAbmZmb29vby5sb2NhbCIsInJvbGUiOiJ1c2VyIiwibGFzdG5hbWUiOiJTbWl0aCIsImZpcnN0bmFtZSI6Iktla3MiLCJpYXQiOjE2ODM0NTYzMTAsImV4cCI6MTY4MzQ1NjkxMH0.51SCt57erEJ9Snp_6klC0TYPXkFe5V5t0gl7ZIAnuX0
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDVhMDIxYWNlZDc1NDQ2YzNiYWMxZWQiLCJlbWFpbCI6InVzZXI2NEBmZm9vby5sb2FsIiwicm9sZSI6InVzZXIiLCJsYXN0bmFtZSI6IlNtaXRoIiwiZmlyc3RuYW1lIjoiS2VrcyIsImlhdCI6MTY4MzYyMDQzNywiZXhwIjoxNjgzNjIxMDM3fQ.nI0A08pKBrChaHMaEfzYKBz7DTAvODCd59lDWBpP9lw
 Content-Type: application/json
 
 {

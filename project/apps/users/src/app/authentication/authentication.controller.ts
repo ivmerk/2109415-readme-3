@@ -55,6 +55,17 @@ export class AuthenticationController {
     return this.authService.createUserToken(user);
   }
 
+  @Post('addpost/:id')
+  public async decreasePostsQtt(@Param('id', MongoidValidationPipe) id: string){
+    const existUser = await this.authService.increasePostsQtt(id);
+    return fillObject(UserRdo, existUser);
+  }
+  @Post('delpost/:id')
+  public async increasePostsQtt(@Param('id', MongoidValidationPipe) id: string){
+    const existUser = await this.authService.decreasePostsQtt(id);
+    return fillObject(UserRdo, existUser);
+  }
+
   @ApiResponse({
     type: UserRdo,
     status: HttpStatus.OK,
@@ -65,7 +76,6 @@ export class AuthenticationController {
     const existUser = await this.authService.getUser(id);
     return fillObject(UserRdo, existUser);
   }
-
 
   @UseGuards(JwtRefreshGuard)
   @Post('refresh')
