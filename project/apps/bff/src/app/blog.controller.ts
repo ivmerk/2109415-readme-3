@@ -38,7 +38,6 @@ export class BlogController {
 
   @Post('/findbytext')
   public async showByText(@Query() text:SearchingTextQuery){
-    console.log(text)
     if(text.searchingText !== ''){
     const{data} = await this.httpService.axiosRef.post(`${ApplicationServiceURL.Blog}/findbytext?searchingText=${text.searchingText}`);
     return data;} else {
@@ -70,11 +69,9 @@ export class BlogController {
   @Get('/feed')
   public async feedLine(@Req() {user: payload}: RequestWithTokenPayload, @Query() query: PostQuery){
     const userIdResponse = await this.httpService.axiosRef.get(`${ApplicationServiceURL.Users}/${payload.sub}`);
-    console.log(userIdResponse.data.subscribe)
     const userIdsDto = new UserIdsDto();
     userIdsDto.ids = [...userIdResponse.data.subscribe, payload.sub];
     const {data} = await this.httpService.axiosRef.post(`${ApplicationServiceURL.Blog}/feed?limit=${query.limit!=0? query.limit:DEFAULT_COMMENT_COUNT_LIMIT}&page=${query.page?query.page:1}${query.sortType ? '&'+ query.sortType : ''}`, userIdsDto);
-    console.log(data);
     return data;
   }
 

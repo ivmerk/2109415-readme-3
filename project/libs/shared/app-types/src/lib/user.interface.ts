@@ -10,4 +10,6 @@ export interface User {
   passwordHash: string;
   role: UserRole;
   subscribe: string[];
+  mySubscribers: string[];
+  myPostsQtt: number;
 }

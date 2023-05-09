@@ -47,7 +47,6 @@ export class UsersController {
   @Post('changepassword')
   public async changePass(@Body() dto:NewPassDto,@Req() {user: payload}: RequestWithTokenPayload) {
     const body = {...dto, id: payload.sub}
-    console.log(body)
     const { data } = await this.httpService.axiosRef.post(`${ApplicationServiceURL.Users}/changepassword`, body);
     return data;
   }

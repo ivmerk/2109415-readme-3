@@ -29,7 +29,7 @@ export class AuthenticationService {
       email, firstname, lastname, role: UserRole.User,
       avatar: '', dateBirth: dayjs(dateBirth).toDate(),
       passwordHash: '',
-      subscribe: null
+      subscribe: null, mySubscribers: null, myPostsQtt: 0
     };
 
     const existUser = await this.blogUserRepository
@@ -49,7 +49,6 @@ export class AuthenticationService {
   public async changePassword(id: string, oldPassword: string, newPassword: string):Promise<User>{
     const user = await this.blogUserRepository.findById(id);
     const newPasswordUserEntity = await new BlogUserEntity(user);
-    console.log(user)
     if (!await newPasswordUserEntity.comparePassword(oldPassword)) {
       throw new UnauthorizedException(AUTH_USER_PASSWORD_WRONG);
     }
@@ -93,23 +92,40 @@ export class AuthenticationService {
 
   public async subscribe(idReader: string, idWriter: string): Promise<User>{
 
-    const existUser = await  this.blogUserRepository.findById(idReader);
-    if (!existUser ) {
+    const subscribingUser = await  this.blogUserRepository.findById(idReader);
+    if (!subscribingUser ) {
       throw new NotFoundException(AUTH_USER_NOT_FOUND);
     }
-    if (!existUser.subscribe.includes(idWriter)){
-      existUser.subscribe.push(idWriter);
-    return this.blogUserRepository.update(idReader, new BlogUserEntity(existUser));
-  }}
+    if (!subscribingUser.subscribe.includes(idWriter)){
+      subscribingUser.subscribe.push(idWriter);
+      await this.blogUserRepository.update(idReader, new BlogUserEntity(subscribingUser));
+    }
+    const subscribedUser = await  this.blogUserRepository.findById(idWriter);
+    if (!subscribedUser ) {
+      throw new NotFoundException(AUTH_USER_NOT_FOUND);
+    }
+    if (!subscribedUser.mySubscribers.includes(idReader)){
+      subscribedUser.mySubscribers.push(idReader);
+      return  await this.blogUserRepository.update(idWriter, new BlogUserEntity(subscribedUser));
+    }
+  }
 
   public async unSubscribe(idReader: string, idWriter: string): Promise<User>{
-    const existUser = await  this.blogUserRepository.findById(idReader);
-    if (!existUser ) {
+    const subscribingUser = await  this.blogUserRepository.findById(idReader);
+    if (!subscribingUser ) {
       throw new NotFoundException(AUTH_USER_NOT_FOUND);
     }
-    if (existUser.subscribe.includes(idWriter)){
-      existUser.subscribe.splice(existUser.subscribe.indexOf(idWriter),1);
-    return this.blogUserRepository.update(idReader, new BlogUserEntity(existUser));
+    if (subscribingUser.subscribe.includes(idWriter)){
+      subscribingUser.subscribe.splice(subscribingUser.subscribe.indexOf(idWriter),1);
+    await this.blogUserRepository.update(idReader, new BlogUserEntity(subscribingUser));
+  }
+  const subscribedUser = await  this.blogUserRepository.findById(idWriter);
+  if (!subscribedUser ) {
+    throw new NotFoundException(AUTH_USER_NOT_FOUND);
+  }
+  if (!subscribedUser.mySubscribers.includes(idReader)){
+    subscribedUser.mySubscribers.splice(subscribedUser.mySubscribers.indexOf(idReader),1);
+    return  await this.blogUserRepository.update(idWriter, new BlogUserEntity(subscribedUser));
   }
 }
 }

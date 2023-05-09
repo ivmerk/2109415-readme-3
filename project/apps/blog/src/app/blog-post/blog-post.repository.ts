@@ -145,6 +145,7 @@ export class BlogPostRepository implements CRUDRepository<BlogPostEntity, number
           userId: {
             in: ids
           },
+          isDraft: false,
         },
         take: limit,
       include: {
@@ -172,6 +173,7 @@ export class BlogPostRepository implements CRUDRepository<BlogPostEntity, number
           userId: {
             in: ids
           },
+          isDraft: false,
         },
         take: limit,
       include: {
@@ -198,6 +200,7 @@ export class BlogPostRepository implements CRUDRepository<BlogPostEntity, number
         userId: {
           in: ids
         },
+        isDraft: false,
       },
       take: limit,
       include: {

@@ -36,7 +36,6 @@ export class AuthenticationController {
   @Post('changepassword')
   public async newPass(@Body() dto: changePassDto){
     const{id, oldPassword, newPassword} = dto;
-    console.log(dto)
     return this.authService.changePassword(id, oldPassword, newPassword);
   }
 

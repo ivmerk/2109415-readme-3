@@ -41,7 +41,6 @@ export class BlogPostController {
 
   @Post('/findbytext')
   async showByText(@Query() text:SearchTextQuery){
-    console.log('blogcontroller')
     const posts = this.blogPostService.getPostByName(text.searchingText);
     return fillObject(PostRdo, posts);
   }
