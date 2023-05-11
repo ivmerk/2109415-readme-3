@@ -16,10 +16,10 @@ async function bootstrap() {
     .setVersion('1.0')
     .build();
   const globalPrefix = 'api';
-  app.setGlobalPrefix(globalPrefix);
   const document = SwaggerModule.createDocument(app, config);
   const port = process.env.PORT || 3333;
 
+  app.setGlobalPrefix(globalPrefix);
   SwaggerModule.setup('spec', app, document);
 
   app.useGlobalPipes(
