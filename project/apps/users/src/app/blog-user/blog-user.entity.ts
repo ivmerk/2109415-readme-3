@@ -20,7 +20,7 @@ export class BlogUserEntity implements User {
   }
 
   public toObject() {
-    return {...this};
+    return { ...this };
   }
 
   public fillEntity(blogUser: User) {

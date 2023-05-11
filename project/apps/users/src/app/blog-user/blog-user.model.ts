@@ -48,7 +48,7 @@ export class BlogUserModel extends Document implements User {
   public subscribe: string[];
 
   @Prop()
-  public mySubscribers:  string[];
+  public mySubscribers: string[];
 
   @Prop()
   public myPostsQtt: number;
