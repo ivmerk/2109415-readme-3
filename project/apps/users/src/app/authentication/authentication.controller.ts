@@ -73,6 +73,8 @@ export class AuthenticationController {
     @Param('id', MongoidValidationPipe) id: string
   ) {
     const existUser = await this.authService.increasePostsQtt(id);
+    const { email, mySubscribers } = existUser;
+    await this.notifyService.informingAboutNewPost({ email, mySubscribers });
     return fillObject(UserRdo, existUser);
   }
   @Post('delpost/:id')

@@ -138,22 +138,22 @@ export class AuthenticationService {
 
   public async subscribe(idReader: string, idWriter: string): Promise<User> {
     const subscribingUser = await this.blogUserRepository.findById(idReader);
+    const subscribedUser = await this.blogUserRepository.findById(idWriter);
     if (!subscribingUser) {
       throw new NotFoundException(AUTH_USER_NOT_FOUND);
     }
-    if (!subscribingUser.subscribe.includes(idWriter)) {
-      subscribingUser.subscribe.push(idWriter);
+    if (!subscribingUser.subscribe.includes(subscribedUser.email)) {
+      subscribingUser.subscribe.push(subscribedUser.email);
       await this.blogUserRepository.update(
         idReader,
         await new BlogUserEntity(subscribingUser)
       );
     }
-    const subscribedUser = await this.blogUserRepository.findById(idWriter);
     if (!subscribedUser) {
       throw new NotFoundException(AUTH_USER_NOT_FOUND);
     }
-    if (!subscribedUser.mySubscribers.includes(idReader)) {
-      subscribedUser.mySubscribers.push(idReader);
+    if (!subscribedUser.mySubscribers.includes(subscribingUser.email)) {
+      subscribedUser.mySubscribers.push(subscribingUser.email);
       return await this.blogUserRepository.update(
         idWriter,
         await new BlogUserEntity(subscribedUser)
@@ -163,12 +163,13 @@ export class AuthenticationService {
 
   public async unSubscribe(idReader: string, idWriter: string): Promise<User> {
     const subscribingUser = await this.blogUserRepository.findById(idReader);
+    const subscribedUser = await this.blogUserRepository.findById(idWriter);
     if (!subscribingUser) {
       throw new NotFoundException(AUTH_USER_NOT_FOUND);
     }
-    if (subscribingUser.subscribe.includes(idWriter)) {
+    if (subscribingUser.subscribe.includes(subscribedUser.email)) {
       subscribingUser.subscribe.splice(
-        subscribingUser.subscribe.indexOf(idWriter),
+        subscribingUser.subscribe.indexOf(subscribedUser.email),
         1
       );
       await this.blogUserRepository.update(
@@ -176,13 +177,12 @@ export class AuthenticationService {
         await new BlogUserEntity(subscribingUser)
       );
     }
-    const subscribedUser = await this.blogUserRepository.findById(idWriter);
     if (!subscribedUser) {
       throw new NotFoundException(AUTH_USER_NOT_FOUND);
     }
-    if (!subscribedUser.mySubscribers.includes(idReader)) {
+    if (subscribedUser.mySubscribers.includes(subscribingUser.email)) {
       subscribedUser.mySubscribers.splice(
-        subscribedUser.mySubscribers.indexOf(idReader),
+        subscribedUser.mySubscribers.indexOf(subscribingUser.email),
         1
       );
       return await this.blogUserRepository.update(
