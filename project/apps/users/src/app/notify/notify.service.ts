@@ -23,7 +23,8 @@ export class NotifyService {
   }
 
   public async informingAboutNewPost(dto: NewPostInforming) {
-    return this.rabbitClient.publish<NewPostInforming>(
+    console.log('dto', dto);
+    return await this.rabbitClient.publish<NewPostInforming>(
       this.rabbiOptions.exchange,
       RabbitRouting.NewPostInforming,
       { ...dto }
