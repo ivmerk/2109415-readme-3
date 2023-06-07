@@ -1,0 +1,50 @@
+version: '3.5'
+services:
+  readme.blog.postgres:
+    image: postgres:14-alpine
+    container_name: readme.blog.postgres
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: test
+      POSTGRES_DB: readme-blog
+    volumes:
+      - ~/db/readme.postgres.blogprod:/var/lib/postgresql/data
+    restart: always
+    networks:
+      - readme.blog
+
+  readme.blog:
+    image: readme.blog:latest
+    restart: always
+    container_name: readme.blog
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: test
+      POSTGRES_DB: readme-blog
+      POSTGRES_PORT: 5432
+      PGADMIN_DEFAULT_EMAIL: keks@htmlacademy.local
+      PGADMIN_DEFAULT_PASSWORD: test
+      DATABASE_URL: postgres://admin:test@readme.blog.postgres:5432/readme-blog?schema=public
+    ports:
+      - 3333:3333
+    networks:
+      - readme.blog
+
+  readme.blog.pgadmin:
+    image: dpage/pgadmin4
+    container_name: readme.blog.pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: keks@htmlacademy.local
+      PGADMIN_DEFAULT_PASSWORD: test
+      PGADMIN_CONFIG_SERVER_MODE: 'False'
+    ports:
+      - 8082:80
+    networks:
+      - readme.blog
+
+volumes:
+  readme.postgres.blog:
+
+networks:
+  readme.blog:
+      driver: bridge

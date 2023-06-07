@@ -1,7 +1,7 @@
 #Берем тот же node в котором писали чтобы работала prisma берем slim
 FROM node:18.15.0-slim
 
-#для работы prism
+#для работы prisma еще нужно перед сборкой папку prisma положить в assets
 RUN apt-get update && apt-get install -y openssl libssl-dev
 
 #Создает дирректорию для контейнера
